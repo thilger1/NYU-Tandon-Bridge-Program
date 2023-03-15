@@ -3,7 +3,17 @@
 using namespace std;
 
 string* createWordsArray(string sentence, int& outWordsArrSize) {
-    string* arr[outWordsArrSize];
+    int spaceIndex = 0;
+    int words = 0;
+    int sentenceLength = sentence.length();
+    string* wordsArray = new string[sentenceLength];
+
+    for (int i = 0; i < sentenceLength; i++) {
+        if (sentence[i] == ' ') {
+            wordsArray[words] = sentence.substr(spaceIndex, )
+            words++;
+        }
+    }
     return arr;
 }
 
