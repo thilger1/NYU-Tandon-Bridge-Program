@@ -9,12 +9,18 @@ string* createWordsArray(string sentence, int& outWordsArrSize) {
     string* wordsArray = new string[sentenceLength];
 
     for (int i = 0; i < sentenceLength; i++) {
-        if (sentence[i] == ' ') {
-            wordsArray[words] = sentence.substr(spaceIndex, )
+        if (sentence[i] == ' ' || sentence[i] == '.') {
+            wordsArray[words] = sentence.substr(spaceIndex + 1, i - spaceIndex);
             words++;
+            spaceIndex = i;
         }
+        //if no spaces or periods in the sentece
+        
     }
-    return arr;
+    wordsArray[words] = sentence.substr(spaceIndex + 1);
+    words++;
+    outWordsArrSize = words;
+    return wordsArray;
 }
 
 int main() {
@@ -23,6 +29,15 @@ int main() {
     getline(cin, userSentence);
     int words;
 
-    //string* wordsArray = createWordsArray(userSentence, &words);
+    string* wordsArray = createWordsArray(userSentence, &words);
+    cout<<"Words: ";
+    for (int i = 0; i < words; i++) { 
+        cout<<wordsArray[i];
+        if (i != words-1)
+            cout<<", ";
+    }
+    cout<<endl;
+    delete[] wordsArray;
+    wordsArray = nullptr;
     return 0;
 }
