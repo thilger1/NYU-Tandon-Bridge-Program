@@ -3,10 +3,14 @@
 using namespace std;
 
 int main() {
-    vector<int> v1 = {1, 2, 3};
-    v1.push_back(9);
-    v1.pop_back();
-    v1.shrink_to_fit();
-    cout<< v1.capacity() << endl;
+    vector<int> numbers;
+    for (int i = 1; i <= 10; i++) {
+        numbers.push_back(i);
+    }
+
+    for (int j = 0; j < 10; j++) {
+        cout<<numbers[i] <<endl;
+    }
+
     return 0;
 }
