@@ -1,19 +1,22 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-//back to passing pointers
+//check to see if an array is sorted or not recursively
+//base case: 1 element (or 8)
+//start at end of array
 
-void swap(int* first, int* second) {
-    int temp = *first;
-    *first = *second;
-    *second = temp;
+bool isSorted(int* S, int length){
+    //base case
+    if (length == 1 || length == 0) {
+        return true;
+    }
+    //recursive case check if the first element is greather than or equal to second element
+    if (S[0] >= S[1])
 }
 
+
 int main() {
-    int first = 1;
-    int second = 2;
-    swap(&first, &second);
-    cout<<first<<" "<<second<<endl;
+
+
     return 0;
 }
