@@ -11,12 +11,17 @@ bool isSorted(int* S, int length){
         return true;
     }
     //recursive case check if the first element is greather than or equal to second element
-    if (S[0] >= S[1])
+    if (S[0] >= S[1]) {
+        return isSorted(S+1, length-1);
+
+    }
+    return false;
 }
 
-
+const int LENGTH = 8;
 int main() {
-
+    int arr[LENGTH] = {100, 75, 27, 15, 8, -5, -5, -10};
+    cout<< boolalpha << isSorted(arr, LENGTH);
 
     return 0;
 }
