@@ -4,14 +4,16 @@ using namespace std;
 
 //back to passing pointers
 
-void increasePrice(double* price) {
-    *price *= 1.2;
+void swap(int* first, int* second) {
+    int temp = *first;
+    *first = *second;
+    *second = temp;
 }
 
 int main() {
-    double price = 100;
-    increasePrice(&price);
-    cout << price;
-
+    int first = 1;
+    int second = 2;
+    swap(&first, &second);
+    cout<<first<<" "<<second<<endl;
     return 0;
 }
