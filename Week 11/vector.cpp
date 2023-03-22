@@ -6,5 +6,10 @@ using namespace std;
 //Example: [0, 2, 0, 1, 0] -> [2, 1, 0, 0, 0]
 
 void moveZeroes(int nums[], int n) {
-    
+    return;
+}
+
+int main() {
+    int nums[5] = {0, 2, 0, 1, 0};
+    return 0;
 }
