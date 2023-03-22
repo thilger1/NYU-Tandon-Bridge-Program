@@ -4,13 +4,13 @@ using namespace std;
 
 //back to passing pointers
 
-void increasePrice(double price) {
-    price *= 1.2;
+void increasePrice(double* price) {
+    *price *= 1.2;
 }
 
 int main() {
     double price = 100;
-    increasePrice(price);
+    increasePrice(&price);
     cout << price;
 
     return 0;
