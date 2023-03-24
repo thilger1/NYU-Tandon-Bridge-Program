@@ -4,7 +4,12 @@
 using namespace std;
 
 string analyzeString(string S, int length) {
-    
+    bool pass = true;
+    for (int i = 0; i < length; i++) {
+        if (S[i] != 'A' || S[i] != 'E' || S[i] != 'I' S[i] != 'O' || S[i] != 'U') {
+            
+        }
+    }
 }
 
 int main() {
@@ -17,7 +22,7 @@ int main() {
             return;
         }
         else {
-            analyzeString(userString, length)
+            analyzeString(userString, length);
         }
     }
     return 0;
