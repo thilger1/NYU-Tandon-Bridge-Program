@@ -13,7 +13,11 @@ int factorial(int n) {
     }
 }
 
+bool areAllEven(int[], arr, int n);
+
+
 int main() {
     cout<<factorial(4)<<endl;
+    areAllEven([4, 6, 0, 2], 4);
     return 0;
 }
