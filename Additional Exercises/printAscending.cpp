@@ -3,14 +3,16 @@ using namespace std;
 
 void printAscending(int start, int end) {
     //step 1: base case
+    int mid;
     if (start == end) {
         cout<<start<<endl;
     //step 2: recursive step
     //define the inductive hypothesis (if we call print ascending, it will print the numbers in that range)
     }
     else {
-        printAscending(start, end-1);
-        cout<<end<<endl;
+        mid = (start + end)/2;
+        printAscending(start, mid);
+        printAscending(mid+1, end);
     }
 }
 
