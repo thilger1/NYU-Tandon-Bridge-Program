@@ -16,8 +16,18 @@ void printAscending(int start, int end) {
     }
 }
 
+void printAscAndDesc (int start, int end) {
+    if (start == end) {
+        cout<<start<<endl;
+    }
+    else {
+
+    }
+}
+
 int main() {
 
     printAscending(3, 6);
+    printAscAndDesc(3, 6);
     return 0;
 }
