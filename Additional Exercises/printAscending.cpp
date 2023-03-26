@@ -7,9 +7,9 @@ void printAscending(int start, int end) {
         cout<<start<<endl;
     //step 2: recursive step
     //define the inductive hypothesis (if we call print ascending, it will print the numbers in that range)
-    else {
-        printAsC(start, end-1);
     }
+    else {
+        printAscending(start, end-1);
     }
 }
 
