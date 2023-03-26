@@ -10,6 +10,7 @@ void printAscending(int start, int end) {
     }
     else {
         printAscending(start, end-1);
+        cout<<end<<endl;
     }
 }
 
