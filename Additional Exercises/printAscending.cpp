@@ -21,7 +21,8 @@ void printAscAndDesc (int start, int end) {
         cout<<start<<endl;
     }
     else {
-
+        printAscAndDesc(start+1, end);
+        cout<<start<<endl;
     }
 }
 
