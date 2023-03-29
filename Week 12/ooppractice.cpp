@@ -1,32 +1,21 @@
 #include <iostream>
 using std::string;
 
-class Employee {
+class Dog :public Pet {
+    double erSize;
+
     public:
-    //semicolon belongs at the end of program
-    //everything within class is private by default
-    string Name;
-    string Company;
-    int Age;
-
-    void IntroduceYourself() {
-        std::cout << "Name - " << Name << std::endl;
-        std::cout << "Company - " << Company << std::endl;
-        std::cout << "Age - " << Age << std::endl;
-    }
-
+        Dog() : Pet (2000) {}
+        void speak() const {cout << "WOOF!"<<endl;}
+        void setSize (double newSize) {earSize = newSize;}
+        double getSize()const{ return earSize; }
 };
 
 int main() {
-    int number;
-    Employee employee1;
-    employee1.Name = "Ted";
-    employee1.Company = "Kepler";
-    employee1.Age = 26;
-    employee1.IntroduceYourself();
-
-    Employee employee2;
-    employee2.Name = "John";
-    employee2.Company = "Amazon";
-    employee2.Age = 35;
+    Pet** pArray = new Pet*[3];
+    pArray[0] = new Cat();
+    pArray[1] = new Dog();
+    pArray[2] = new Cat();
+    for (int i = 0; i < 3; i++)
+        pArray[i]->speak();
 }
