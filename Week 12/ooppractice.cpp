@@ -1,20 +1,24 @@
 #include <iostream>
-#include <string.h>
+#include <string>
 using namespace std;
 
-class Vorlon {
-public: 
-    Vorlon(const string& aName) : myName(aName) {}
-    void display() {cout << "Displaying a Vorlon named " << myName << endl;}
-private:
-    string myName;
-}
-//remember semicolon at the end or it wil get an error
+class Employee {
+public:
+    string Name;
+    string Company;
+    int Age;
+
+    void IntroduceYourself() {
+        cout<<"Name: " << Name <<endl;
+        cout<<"Company: " << Company <<endl;
+        cout<<"Age: " << Age <<endl;
+    }
+};
 
 int main() {
-    Vorlon v2("Kosh");
-    Vorlon v3(v1);
-    Vorlon v4 = v1;
-    return 0;
+    Employee employee1;
+    employee1.Name = "Ted";
+    employee1.Company = "Kepler";
+    employee1.Age = 25;
+    employee1.IntroduceYourself();
 }
-
