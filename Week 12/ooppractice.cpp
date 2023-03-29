@@ -14,5 +14,7 @@ class Employee {
 int main() {
     int number;
     Employee employee1;
-    employee1.Name;
+    employee1.Name = "Ted";
+    employee1.Company = "Kepler";
+    employee1.Age = 26;
 }
