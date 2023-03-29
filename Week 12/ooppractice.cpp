@@ -11,4 +11,5 @@ class Employee {
 
 int main() {
     int number;
+    Employee employee1;
 }
