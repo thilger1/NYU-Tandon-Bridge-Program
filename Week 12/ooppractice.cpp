@@ -9,6 +9,7 @@ public:
 
 class Vorlon {
 public:
+    Vorlon(const string& aName) {myName = aName;}
     void display() {cout << "Displaying a Vorlon named " << myName << endl;}
 private:
     string myName;
@@ -16,9 +17,8 @@ private:
 //remember semicolon at the end or it wil get an error
 
 int main() {
-    Vorlon v1;
-    v1.myName = "Kosh";
-    v1.display();
+    Vorlon v2("Kosh");
+    v2.display();
     return 0;
 }
 
