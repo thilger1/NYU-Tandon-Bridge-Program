@@ -1,5 +1,10 @@
 #include <iostream>
 
-int main() {
+class Employee {
+    //semicolon belongs at the end of program
     
+};
+
+int main() {
+
 }
