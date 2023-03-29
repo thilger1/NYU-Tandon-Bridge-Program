@@ -1,21 +1,15 @@
 #include <iostream>
-using std::string;
+using namespace std;
 
-class Dog :public Pet {
-    double erSize;
-
-    public:
-        Dog() : Pet (2000) {}
-        void speak() const {cout << "WOOF!"<<endl;}
-        void setSize (double newSize) {earSize = newSize;}
-        double getSize()const{ return earSize; }
+class Simple {
+public:
+    void display() {cout << "Displaying a Simple object\n";}
 };
+//remember semicolon at the end or it wil get an error
 
 int main() {
-    Pet** pArray = new Pet*[3];
-    pArray[0] = new Cat();
-    pArray[1] = new Dog();
-    pArray[2] = new Cat();
-    for (int i = 0; i < 3; i++)
-        pArray[i]->speak();
+    Simple simpleton;
+    simpleton.display();
+    return 0;
 }
+
