@@ -52,7 +52,17 @@ public:
 };
 
 class Developer: Employee{
-    
+public:
+    string FavProgrammingLanguage;
+    Developer(string name, string company, int age, string favProgrammingLanguage)
+        :Employee(name, company, age)
+    {
+        FavProgrammingLanguage = favProgrammingLanguage;
+    }
+    void FixBug() {
+        cout<<getName() <<" fixed bug using "<< FavProgrammingLanguage <<endl;
+    }
+
 };
 
 
@@ -63,5 +73,7 @@ int main() {
 
     employee1.AskForPromotion();
     employee2.AskForPromotion();
+    Developer t = Developer("Ted", "Kepler", 26, "C++");
+    t.FixBug();
 }
 
