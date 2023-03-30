@@ -40,20 +40,19 @@ public:
         cout<<"Age: " << Age <<endl;
     }
     Employee(string name, string company, int age) {
-        Name = name;
-        Company = company;
-        Age = age;
+        void AskForPromotion() {
+            if(Age > 30)
+                cout<< Name <<" got promoted!" << endl;
+            else
+                cout<< Name << ", sorry no promotion for you!" <<endl;
+        }
     }
 };
 
 int main() {
+    
     Employee employee1 = Employee("Ted", "Kepler", 26);
-    employee1.IntroduceYourself();
-
     Employee employee2 = Employee("John", "Amazon", 35);
-    employee2.IntroduceYourself();
 
-    employee1.setAge(15); 
-    cout<<employee1.getName()<<" is " <<employee1.getAge()<<" years old"<<endl;
 }
 
