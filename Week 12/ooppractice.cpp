@@ -4,7 +4,6 @@ using namespace std;
 
 class AbstractEmployee {
     virtual void AskForPromotion() = 0;
-
 };
 
 class Employee:AbstractEmployee {
@@ -51,6 +50,11 @@ public:
             cout<< Name << ", sorry no promotion for you!" <<endl;
     }
 };
+
+class Developer: Employee{
+    
+};
+
 
 int main() {
 
