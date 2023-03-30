@@ -2,7 +2,12 @@
 #include <string>
 using namespace std;
 
-class Employee {
+class AbstractEmployee {
+    virtual void AskForPromotion() = 0;
+
+};
+
+class Employee:AbstractEmployee {
 private:
     string Name;
     string Company;
@@ -51,3 +56,4 @@ int main() {
     employee1.setAge(15); 
     cout<<employee1.getName()<<" is " <<employee1.getAge()<<" years old"<<endl;
 }
+
