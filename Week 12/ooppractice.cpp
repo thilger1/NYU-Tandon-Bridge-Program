@@ -23,7 +23,8 @@ public:
     }
 
     void setAge(int age) {
-        Age = age;
+        if (age >= 18)
+            Age = age;
     }
     int getAge() {
         return Age;
@@ -47,5 +48,6 @@ int main() {
     Employee employee2 = Employee("John", "Amazon", 35);
     employee2.IntroduceYourself();
 
-    employee1.
+    employee1.setAge(15); 
+    cout<<employee1.getName()<<" is " <<employee1.getAge()<<" years old"<<endl;
 }
