@@ -52,7 +52,7 @@ public:
         else
             cout<< Name << ", sorry no promotion for you!" <<endl;
     }
-    void Work() {
+    virtual void Work() {
         cout<<Name<<" is checking email, task backlog, performing tasks... " << endl;
     }
 };
@@ -82,6 +82,9 @@ public:
     {
         Subject = subject;
     }
+    void Work() {
+        cout<< Name << " is teaching a class"<<endl;
+    }
 };
 
 int main() {
@@ -91,7 +94,11 @@ int main() {
 
     Developer d = Developer("Ted", "Kepler", 26, "C++");
     Teacher t = Teacher("Jack", "Cool School", 35, "History");
-    d.Work();
-    t.Work();
+    
+    Employee* e1 = &d;
+    Employee* e2 = &t;
+
+    e1->Work();
+    e2->Work();
 }
 
