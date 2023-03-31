@@ -52,6 +52,9 @@ public:
         else
             cout<< Name << ", sorry no promotion for you!" <<endl;
     }
+    void Work() {
+        cout<<Name<<" is checking email, task backlog, performing tasks... " << endl;
+    }
 };
 
 class Developer: public Employee {
@@ -88,7 +91,7 @@ int main() {
 
     Developer d = Developer("Ted", "Kepler", 26, "C++");
     Teacher t = Teacher("Jack", "Cool School", 35, "History");
-    t.PrepareLesson();
-    t.AskForPromotion();
+    d.Work();
+    t.Work();
 }
 
