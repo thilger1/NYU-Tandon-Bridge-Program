@@ -1,36 +1,17 @@
 #include <iostream>
 using namespace std;
 
-class Car {
-private:
-    double _height;
-    double _weight;
-    string _color;
-    int _numOfWheels;
-    int _year;
+class Thing {
+    int num;
 public:
-    Car(){
-        _weight = 0;
-    }
-    Car(double weight){
-        _weight = weight;
-    }
-
-    double getWeight() {
-        return _weight;
-    }
-
-    void displayWeight() {
-        cout<< "Your car's weight is " << _weight << " tons";
-    }
+    Thing(int newnum = 0) :num(newnum) {}
+    int getNum() const{};
+    void setNum(int newnum) {num = newnum;}
 
 };
 
 int main() {
-    Car chevy(15);
-    Car tesla(10);
-
-    chevy.getWeight();
-    chevy.displayWeight();
+    Thing one(1);
+    cout<<one.getNum()<<endl;
     return 0;
 }
