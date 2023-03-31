@@ -54,7 +54,7 @@ public:
     }
 };
 
-class Developer: Employee{
+class Developer: public Employee {
 public:
     string FavProgrammingLanguage;
     Developer(string name, string company, int age, string favProgrammingLanguage)
@@ -68,13 +68,27 @@ public:
 
 };
 
+class Teacher:public Employee {
+public: 
+    string Subject;
+    void PrepareLesson() {
+        cout<<Name<<" is preparing "<< Subject<< " lesson" << endl;
+    }
+    Teacher(string name, string company, int age, string subject)
+        :Employee(name, company, age)
+    {
+        Subject = subject;
+    }
+};
 
 int main() {
 
     Employee employee1 = Employee("Ted", "Kepler", 26);
     Employee employee2 = Employee("John", "Amazon", 35);
 
-    Developer t = Developer("Ted", "Kepler", 26, "C++");
-    t.FixBug();
+    Developer d = Developer("Ted", "Kepler", 26, "C++");
+    Teacher t = Teacher("Jack", "Cool School", 35, "History");
+    t.PrepareLesson();
+    t.AskForPromotion();
 }
 
