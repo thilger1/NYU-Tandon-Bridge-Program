@@ -1,17 +1,19 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class Thing {
-    int num;
 public:
-    Thing(int newnum = 0) :num(newnum) {}
-    int getNum() const{};
-    void setNum(int newnum) {num = newnum;}
+    string name;
+    int age;
 
+void demoThisFunc() const{
+    cout<<this<<endl;
+}
 };
 
 int main() {
-    Thing one(1);
-    cout<<one.getNum()<<endl;
+    Thing lamp;
+    lamp.demoThisFunc();
     return 0;
 }
