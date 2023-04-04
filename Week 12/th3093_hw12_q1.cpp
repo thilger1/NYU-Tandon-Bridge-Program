@@ -19,7 +19,7 @@ public:
     //is negative, then both dollars and cents should be negative.
     Money(long dollars);
     //Initializes the object so its value represents $dollars.00.
-    Money( );
+    Money();
     //Initializes the object so its value represents $0.00.
     double get_value( ) const;
     //Returns the amount of money recorded in the data portion of the calling
@@ -38,6 +38,20 @@ private:
     long all_cents
 };
 
+class Check {
+private:
+    int check_num;
+    Money amount;
+    int is_cashed;
+
+};
+
+void balanceCheckbook() {
+    Check arr [5];
+
+}
+
 int main() {
+    balanceCheckbook();
     return 0;
 }
