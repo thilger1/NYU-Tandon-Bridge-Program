@@ -41,17 +41,78 @@ private:
 class Check {
 private:
     int check_num;
-    Money amount;
-    int is_cashed;
+    Money check_amount;
+    int check_cashed;
+public:
+    void setNum(int num) {
+        check_num = num;
+    }
+    void setAmount(Money amount) {
+        check_amount = amount;
+    }
+    //1 or 0
+    void setCashed(int binary) {
+        check_cashed = binary;
+    }
 
 };
 
-void balanceCheckbook() {
-    Check arr [5];
+void depositChecks(Check arr[], int size) {
+    bool more_checks = true;
+    int check_num;
+    Money check_amount;
+    char check_cashed;
+    cout<<"Please enter the following info for your checks. If you are done submitting info for your checks, submit '0' as the check number"<<endl;
+
+    //loops until user enters zero as check number to indicate loop stop
+    while (more_checks) {
+
+        //Check Number
+        cout<<"Check number?: ";
+        cin>>check_num;
+        if (check_num != 0) {
+            Check new_check;
+            new_check.setNum(check_num);
+
+            //Check amount
+            cout<<"\nPlease enter the check amount: ";
+            cin>>check_amount;
+            new_check.setAmount(check_amount);
+
+            //Check cashed
+            cout<<"\nWas the check cashed? Y/N: ";
+            cin>>check_cashed;
+            if (check_cashed == 'Y') {
+                new_check.setCashed(1);
+            }
+            if (check_cashed == 'N') {
+                new_check.setCashed(0);
+            }
+        }
+        else {
+            more_checks = false;
+            return;
+        }
+        
+    }
 
 }
 
+const int ARBITRARY_START = 5;
 int main() {
-    balanceCheckbook();
+    Check arr[ARBITRARY_START];
+    depositChecks(arr, ARBITRARY_START);
+
     return 0;
 }
+
+
+
+//stage 1
+//read in from checks: number, amount (type money), and whether or not cashed (1/0)
+//check array to store them, reads in this info from console
+
+//stage 2
+//second array to hold bank deposits
+//new account balance is old, plus all deposits, minus checks cashed
+//outputs total of checks cashed, total of deposits, new balanace, difference between what bank said it should be
