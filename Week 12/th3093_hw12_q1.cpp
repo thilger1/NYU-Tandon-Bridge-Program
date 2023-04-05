@@ -71,7 +71,11 @@ void depositChecks(Check arr[], int size) {
         //Check Number
         cout<<"Check number?: ";
         cin>>check_num;
-        if (check_num != 0) {
+        if (check_num == 0) {
+            more_checks = false;
+            return;
+        }
+        else {
             Check new_check;
             new_check.setNum(check_num);
 
@@ -94,11 +98,6 @@ void depositChecks(Check arr[], int size) {
                 return;
             }
             arr[counter++] = new_check;
-
-        }
-        else {
-            more_checks = false;
-            return;
         }
     }
 
