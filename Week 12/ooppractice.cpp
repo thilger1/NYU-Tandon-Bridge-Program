@@ -3,9 +3,13 @@
 using namespace std;
 
 int main() {
-    int arr[3];
-    bool yes = true;
-    arr[0] = yes;
-    cout<<arr[0]<<endl;
+    typedef char* CharArray;
+    CharArray charptr = new char[10];
+    for (int i = 0; i < 10; i++) {
+        charptr[i] = 'a';
+        cout<<charptr[i]<<" ";
+    }
+    delete[] charptr;
+    
     return 0;
 }
