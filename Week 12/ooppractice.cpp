@@ -2,18 +2,10 @@
 #include <string>
 using namespace std;
 
-class Thing {
-public:
-    string name;
-    int age;
-
-void demoThisFunc() const{
-    cout<<this<<endl;
-}
-};
-
 int main() {
-    Thing lamp;
-    lamp.demoThisFunc();
+    int arr[3];
+    bool yes = true;
+    arr[0] = yes;
+    cout<<arr[0]<<endl;
     return 0;
 }

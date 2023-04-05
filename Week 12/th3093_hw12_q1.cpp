@@ -58,6 +58,7 @@ public:
 };
 
 void depositChecks(Check arr[], int size) {
+    int counter = 0;
     bool more_checks = true;
     int check_num;
     Money check_amount;
@@ -88,20 +89,25 @@ void depositChecks(Check arr[], int size) {
             if (check_cashed == 'N') {
                 new_check.setCashed(0);
             }
+            else {
+                cout<<"I'm sorry, I didn't recognize that. Please enter 'Y' or 'N' next time." <<endl;
+                return;
+            }
+            arr[counter++] = new_check;
+
         }
         else {
             more_checks = false;
             return;
         }
-        
     }
 
 }
 
-const int ARBITRARY_START = 5;
+const int ARBITRARY_SIZE = 5;
 int main() {
-    Check arr[ARBITRARY_START];
-    depositChecks(arr, ARBITRARY_START);
+    Check arr[ARBITRARY_SIZE];
+    depositChecks(arr, ARBITRARY_SIZE);
 
     return 0;
 }
