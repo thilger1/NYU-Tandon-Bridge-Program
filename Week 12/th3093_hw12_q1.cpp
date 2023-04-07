@@ -57,46 +57,71 @@ public:
 
 };
 
-void depositChecks(Check *&arr, int size) {
+void doubleArray(Check *& arr, int& size, int double_size) {
+    Check* temp = new Check[double_size];
+    for (int i = 0; i < size; i++) {
+        temp[i] = arr[i];
+    }
+
+    delete[] arr;
+
+    arr = temp;
+    size = double_size;
+}
+
+void depositChecks() {
+    int size = 10; //arbitrary starting size
+    int counter = 0;
+    Check* arr = new Check[size];
     bool more_checks = true;
     int check_num;
     Money check_amount;
     char check_cashed;
     cout<<"Please enter the following info for your checks. If you are done submitting info for your checks, submit '-1' as the check number"<<endl;
 
-    //loops until user enters zero as check number to indicate loop stop
-    for (int i = 0; i < size; i++) {
-        Check new_check;
-        new_check.setNum(check_num);
-
-            //Check amount
-        cout<<"\nPlease enter the check amount: ";
-        cin>>check_amount;
-        new_check.setAmount(check_amount);
-
-            //Check cashed
-        cout<<"\nWas the check cashed? Y/N: ";
-        cin>>check_cashed;
-        if (check_cashed == 'Y') {
-            new_check.setCashed(1);
-        }
-        if (check_cashed == 'N') {
-            new_check.setCashed(0);
-        }
-        else {
-            cout<<"I'm sorry, I didn't recognize that. Please enter 'Y' or 'N' next time." <<endl;
+    while (more_checks) {
+        cin>>check_num;
+        //user stop
+        if (check_num == 0) {
+            more_checks = false;
             return;
         }
-        arr[counter++] = new_check;
+
+        else {
+            //array has reached size limit
+            if (counter == size) {
+                doubleArray(arr, size, size * 2);
+            }
+            else {
+                Check new_check;
+                new_check.setNum(check_num);
+
+                //Check amount
+                cout<<"\nPlease enter the check amount: ";
+                cin>>check_amount;
+                new_check.setAmount(check_amount);
+
+                cout<<"\nWas the check cashed? Y/N: ";
+                cin>>check_cashed;
+                if (check_cashed == 'Y') {
+                    new_check.setCashed(1);
+                }
+                if (check_cashed == 'N') {
+                    new_check.setCashed(0);
+                }
+                else {
+                    cout<<"I'm sorry, I didn't recognize that. Please enter 'Y' or 'N' next time." <<endl;
+                    return;
+                }
+                arr[counter++] = new_check;
+            }
+        }
+    delete[] arr;
     }
 }
 
 int main() {
-    int num_of_checks;
-    cout<<"How many checks do you have to enter?";
-    cin>>num_of_checks;
-    Check *arr = new Check[num_of_checks];
-    depositChecks(arr, num_of_checks);
+    depositChecks();
     delete[] arr;
     return 0;
 }

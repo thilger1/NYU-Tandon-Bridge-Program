@@ -3,13 +3,16 @@
 using namespace std;
 
 int main() {
-    typedef char* CharArray;
-    CharArray charptr = new char[10];
-    for (int i = 0; i < 10; i++) {
-        charptr[i] = 'a';
-        cout<<charptr[i]<<" ";
+    int a[10];
+    int *p = a;
+    int i;
+    for (i = 0; i < 10; i++) {
+        a[i] = i;
     }
-    delete[] charptr;
+    for (i = 0; i < 10; i++) {
+        cout<<a[i] << " ";
+    }
+    cout<<endl;
     
     return 0;
 }
