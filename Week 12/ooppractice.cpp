@@ -41,18 +41,59 @@ public:
         return total;
     }
     //Returns amount1 minus amount2.
-    friend Money operator -(const Money& amount);
+    friend Money operator -(const Money& amount) {
+        Money negative;
+        negative.all_cents = -(amount.all_cents);
+        return negative;
+    }
     //Returns the negative of the value of amount.
-    friend bool operator ==(const Money& amount1, const Money& amount2);
+    friend bool operator ==(const Money& amount1, const Money& amount2) {
+        if (amount1.all_cents == amount2.all_cents)
+            return true;
+    }
     //Returns true if amount1 and amount2 have the same value; false otherwise.
-    friend bool operator <(const Money& amount1, const Money& amount2);
+    friend bool operator <(const Money& amount1, const Money& amount2) {
+        if (amount1.all_cents < amount2.all_cents)
+            return true;
+    }
+
     //Returns true if amount1 is less than amount2; false otherwise.
-    friend istream& operator >>(istream& ins, Money& amount);
+    friend istream& operator >>(istream& ins, Money& amount) {
+        char first_char, decimal;
+        double dollars;
+        int cents;
+        bool negative;
+        ins >> first_char;
+        if (first_char == '-')
+            negative = true;
+        if (first_char != '-' || first_char != '$') {
+            cout<<"Please enter your dollar amount starting with a $"<<endl;
+        }
+        else
+            negative = false;
+        
+        ins >> dollars >> decimal >> cents;
+
+        if (negative)
+            amount.all_cents = -(dollars * 100 + cents);
+        else    
+            amount.all_cents = dollars * 100 + cents;
+    }
     //Overloads the >> operator so it can be used to input values of type
     //Money. Notation for inputting negative amounts is as in − $100.00.
     //Precondition: If ins is a file input stream, then ins has already been
     //connected to a file.
-    friend ostream& operator <<(ostream& outs, const Money& amount);
+    friend ostream& operator << (ostream& outs, const Money& amount) {
+        int dollars, cents;
+        
+        dollars = amount.all_cents / 100;
+        cents = amount.all_cents % 100;
+        if (amount < 0)
+            cout<<"-$"<<-(dollars)<<"."<<cents;
+        else
+            cout<<"$"<<dollars<<"."<<cents;
+        
+    }
     //Overloads the << operator so it can be used to output values of type
     //Money. Precedes each output value of type Money with a dollar sign.
     //Precondition: If outs is a file output stream, then outs has already been
