@@ -82,9 +82,9 @@ void depositChecks() {
     while (more_checks) {
         cin>>check_num;
         //user stop
-        if (check_num == 0) {
+        if (check_num == -1) {
             more_checks = false;
-            return;
+            return
         }
 
         else {
