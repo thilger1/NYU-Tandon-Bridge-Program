@@ -50,11 +50,15 @@ public:
     friend bool operator ==(const Money& amount1, const Money& amount2) {
         if (amount1.all_cents == amount2.all_cents)
             return true;
+        else
+            return false;
     }
     //Returns true if amount1 and amount2 have the same value; false otherwise.
     friend bool operator <(const Money& amount1, const Money& amount2) {
         if (amount1.all_cents < amount2.all_cents)
             return true;
+        else
+            return false;
     }
 
     //Returns true if amount1 is less than amount2; false otherwise.
@@ -78,6 +82,7 @@ public:
             amount.all_cents = -(dollars * 100 + cents);
         else    
             amount.all_cents = dollars * 100 + cents;
+        return ins;
     }
     //Overloads the >> operator so it can be used to input values of type
     //Money. Notation for inputting negative amounts is as in − $100.00.
@@ -89,10 +94,10 @@ public:
         dollars = amount.all_cents / 100;
         cents = amount.all_cents % 100;
         if (amount < 0)
-            cout<<"-$"<<-(dollars)<<"."<<cents;
+            cout<<"-$"<<-(dollars)<<"."<<-(cents);
         else
             cout<<"$"<<dollars<<"."<<cents;
-        
+        return outs;
     }
     //Overloads the << operator so it can be used to output values of type
     //Money. Precedes each output value of type Money with a dollar sign.
@@ -102,7 +107,7 @@ public:
 };
 
 int main () {
-    Money amount;
-    cout<<amount.get_value()<<endl;
+    Money amount(-66,64);
+    cout<<amount<<endl;
     return 0;
 }
