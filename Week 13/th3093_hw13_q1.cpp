@@ -18,8 +18,8 @@ vector<char> grid;
 class Organism {
 protected:
     int possible_moves[4] = {1, 2, 3, 4};
-    char shape;
-    int space;
+    int Space;
+    int Life;
 public:
     //pass optional parameter to move it in direction of ant to eat?
     void move() {
@@ -30,43 +30,80 @@ public:
         random_shuffle(possible_moves.begin(), possible_moves.end());
         int move = possible_moves[0];
         //north (1)
-        if (move == 1 && space > 19) {
-            if (checkGrid(space - 20))
-                space -= 20;
+        if (move == 1 && Space > 19) {
+            if (checkGrid(Space - 20))
+                Space -= 20;
         }
         //east (2)
-        if (move == 2 && space % 10 != 0) {
-            if (checkGrid(space + 1))
-                space += 1;
+        if (move == 2 && Space % 10 != 0) {
+            if (checkGrid(Space + 1))
+                Space += 1;
         }
         //south (3)
-        if (move == 3 && space < 379) {
-            if (checkGrid(space + 20))
-                space += 20;
+        if (move == 3 && Space < 379) {
+            if (checkGrid(Space + 20))
+                Space += 20;
         }
         //west (4)
-        if (move == 4 && space % 10 != 1) {
-            if (checkGrid(space - 1))
-                space -= 1;
+        if (move == 4 && Space % 10 != 1) {
+            if (checkGrid(Space - 1))
+                Space -= 1;
         }
     }
-    
+
+    int getLife() const {
+        return Life;
+    }
+    void setLife(int life) {
+        Life = life;
+    }
+
+    //breed();
+
+    //constructor
+    Organism(int space) {
+        Space = space;
+        Life = 0;
+    };
     //
 
 };
 
 class Doodlebug: public Organism {
 private:
-
+    char Shape = 'X';
 public:
-
+    friend Doodlebug operator ++(Doodlebug& bug) {
+        int life = bug.getLife();
+        life += 1;
+        if (life == 8) {
+            //breed();
+            life = 0;
+        }
+        bug.setLife(life);
+        return bug;
+    }
 };
 
 class Ant: public Organism {
 private:
-
+    char Shape = 'o';
+    //increment life every round, 
+    int Life = 0;
 public:
-        
+    Ant breed() {
+
+    }
+    friend Ant operator ++(Ant& bug) {
+        int life = bug.getLife();
+        life += 1;
+        if (life == 3) {
+            //breed();
+            life = 0;
+        }
+        bug.setLife(life);
+        return bug;
+    }
 };
 
 bool checkGrid(int index) {
