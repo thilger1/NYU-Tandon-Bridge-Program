@@ -30,6 +30,8 @@ public:
         random_shuffle(possible_moves.begin(), possible_moves.end());
         int move = possible_moves[0];
         //north (1)
+
+        checkGrid(move, this.Space)
         if (move == 1 && Space > 19) {
             if (checkGrid(Space - 20))
                 Space -= 20;
@@ -82,6 +84,13 @@ public:
         }
         bug.setLife(life);
         return bug;
+    }
+
+    breed() {
+        if(checkGrid) {
+            //random space
+            //duplicate, call constructor
+        }
     }
 };
 
