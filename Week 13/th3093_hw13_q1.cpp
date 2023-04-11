@@ -17,6 +17,7 @@ vector<char> grid;
 
 class Organism {
 protected:
+    //1 - north, 2 - south, 3 - east, 4 - west
     int possible_moves[4] = {1, 2, 3, 4};
     int Space;
     int Life;
@@ -24,7 +25,6 @@ public:
     //pass optional parameter to move it in direction of ant to eat?
     void move() {
         vector <int> possible_moves;
-        //1 = north, 2 = east, 3 = south, 4 = west
         for (int i = 0; i < 4; i++)
             possible_moves.push_back(i);
         random_shuffle(possible_moves.begin(), possible_moves.end());
@@ -61,7 +61,7 @@ public:
     }
 
     //breed();
-
+    //need to modify breed for bugs
     //constructor
     Organism(int space) {
         Space = space;
@@ -86,7 +86,7 @@ public:
         return bug;
     }
 
-    breed() {
+    void breed() {
         if(checkGrid) {
             //random space
             //duplicate, call constructor
