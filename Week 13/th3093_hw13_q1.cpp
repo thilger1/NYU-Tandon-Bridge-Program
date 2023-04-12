@@ -45,7 +45,9 @@ public:
         while (moved == false && moveTries < 4) {
             if (move == 1 && space > 19) {
                 if (checkGrid(space - 20))
+                    grid[space] = '-';
                     space -= 20;
+                    grid[space] = 'X';
                     moved = true;
             }
             //east (2)
@@ -150,6 +152,7 @@ void printGrid(vector <char> vect) {
         cout<<vect[i]<<' ';
         counter++;
     }
+    cout<<"\n\n Hit ENTER to continue\n"<<endl;
 }
 
 void startSim() {
@@ -204,12 +207,20 @@ void startSim() {
         //
 }*/
 
+void round() {
+    for (int i = 0; i < 6; i++) {
+        doodle[i].move();
+    }
+    printGrid(grid);
+}
+
 
 int main() {
     startSim();
-    for (int i = 0; i < 5; i++){
-        int space = doodle[i].getSpace();
-        cout<<space<<' ';
+    char temp;
+    while (temp != -1) {
+        cin.get(temp);
+        round();
     }
     return 0;
 }
