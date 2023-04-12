@@ -92,6 +92,8 @@ public:
 
 };
 
+vector<Organism> doodle;
+
 class Doodlebug: public Organism {
 private:
     char Shape = 'X';
@@ -121,9 +123,9 @@ private:
     //increment life every round, 
     int Life = 0;
 public:
-    Ant breed() {
-        return
-    }
+
+    //Ant breed() {
+    //}
     friend Ant operator ++(Ant& bug) {
         int life = bug.getLife();
         life += 1;
@@ -160,7 +162,10 @@ void startSim() {
     srand(time(0));
     random_shuffle(random_nums.begin(), random_nums.end());
     for (int i = 0; i < 6; i++) {
-        grid[random_nums[i]] = 'X';
+        int doodleSpace = random_nums[i];
+        grid[doodleSpace] = 'X';
+        Organism doodlebug(doodleSpace);
+        doodle.push_back(doodlebug);
     }
 
     for (int i = 5; i < 105; i++) {
@@ -201,9 +206,10 @@ void startSim() {
 
 
 int main() {
-    //startSim();
-    Organism myOrg(1);
-    int space = myOrg.getSpace();
-    cout<<space<<endl;
+    startSim();
+    for (int i = 0; i < 5; i++){
+        int space = doodle[i].getSpace();
+        cout<<space<<' ';
+    }
     return 0;
 }
