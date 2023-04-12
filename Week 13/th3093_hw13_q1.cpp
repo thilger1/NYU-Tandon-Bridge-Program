@@ -15,13 +15,21 @@ const char SPACE = '-';
 const int GRID_SIZE = 400;
 vector<char> grid;
 
+bool checkGrid(int new_index) {
+
+    if (grid[new_index] == '-')
+        return true;
+    else
+        return false;
+}
+
 class Organism {
 protected:
     //1 - north, 2 - south, 3 - east, 4 - west
-    int possible_moves[4] = {1, 2, 3, 4};
     int Space;
     int Life;
 public:
+    int possible_moves[4] = {1, 2, 3, 4};
     //pass optional parameter to move it in direction of ant to eat?
     int move() {
         vector <int> possible_moves;
@@ -65,6 +73,9 @@ public:
     }
     int getLife() const {
         return Life;
+    }
+    int getSpace() const {
+        return Space;
     }
     void setLife(int life) {
         Life = life;
@@ -111,7 +122,7 @@ private:
     int Life = 0;
 public:
     Ant breed() {
-
+        return
     }
     friend Ant operator ++(Ant& bug) {
         int life = bug.getLife();
@@ -125,13 +136,7 @@ public:
     }
 };
 
-bool checkGrid(int new_index) {
 
-    if (grid[new_index] == '-')
-        return true;
-    else
-        return false;
-}
 
 void printGrid(vector <char> vect) {
     int counter = 0;
@@ -197,6 +202,8 @@ void startSim() {
 
 int main() {
     //startSim();
-    
+    Organism myOrg(1);
+    int space = myOrg.getSpace();
+    cout<<space<<endl;
     return 0;
 }
