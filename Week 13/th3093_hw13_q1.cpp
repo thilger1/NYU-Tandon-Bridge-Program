@@ -23,36 +23,46 @@ protected:
     int Life;
 public:
     //pass optional parameter to move it in direction of ant to eat?
-    void move() {
+    int move() {
         vector <int> possible_moves;
         for (int i = 0; i < 4; i++)
             possible_moves.push_back(i);
         random_shuffle(possible_moves.begin(), possible_moves.end());
-        int move = possible_moves[0];
+        
         //north (1)
-
-        checkGrid(move, this.Space)
-        if (move == 1 && Space > 19) {
-            if (checkGrid(Space - 20))
-                Space -= 20;
+        int moveTries = 0;
+        int move = possible_moves[moveTries];
+        bool moved = false;
+        int space = this->Space;
+        while (moved == false && moveTries < 4) {
+            if (move == 1 && space > 19) {
+                if (checkGrid(space - 20))
+                    space -= 20;
+                    moved = true;
+            }
+            //east (2)
+            if (move == 2 && Space % 10 != 0) {
+                if (checkGrid(Space + 1))
+                    space += 1;
+                    moved = true;
+            }
+            //south (3)
+            if (move == 3 && Space < 379) {
+                if (checkGrid(Space + 20))
+                    space += 20;
+                    moved = true;
+            }
+            //west (4)
+            if (move == 4 && Space % 10 != 1) {
+                if (checkGrid(Space - 1))
+                    space -= 1;
+                    moved = true;
+            }
+            else
+                move = possible_moves[moveTries++];
         }
-        //east (2)
-        if (move == 2 && Space % 10 != 0) {
-            if (checkGrid(Space + 1))
-                Space += 1;
-        }
-        //south (3)
-        if (move == 3 && Space < 379) {
-            if (checkGrid(Space + 20))
-                Space += 20;
-        }
-        //west (4)
-        if (move == 4 && Space % 10 != 1) {
-            if (checkGrid(Space - 1))
-                Space -= 1;
-        }
+        return space;
     }
-
     int getLife() const {
         return Life;
     }
@@ -115,8 +125,9 @@ public:
     }
 };
 
-bool checkGrid(int index) {
-    if (grid[index] == '-')
+bool checkGrid(int new_index) {
+
+    if (grid[new_index] == '-')
         return true;
     else
         return false;
@@ -185,6 +196,7 @@ void startSim() {
 
 
 int main() {
-    startSim();
+    //startSim();
+    
     return 0;
 }
