@@ -41,37 +41,46 @@ public:
         int moveTries = 0;
         int move = possible_moves[moveTries];
         bool moved = false;
-        int space = this->Space;
         while (moved == false && moveTries < 4) {
-            if (move == 1 && space > 19) {
-                if (checkGrid(space - 20))
-                    grid[space] = '-';
-                    space -= 20;
-                    grid[space] = 'X';
+            if (move == 1 && Space > 19) {
+                if (checkGrid(Space - 20)) {
+                    grid[Space] = '-';
+                    Space -= 20;
+                    grid[Space] = 'X';
                     moved = true;
+                }
             }
             //east (2)
             if (move == 2 && Space % 10 != 0) {
-                if (checkGrid(Space + 1))
-                    space += 1;
+                if (checkGrid(Space + 1)) {
+                    grid[Space] = '-';
+                    Space += 1;
+                    grid[Space] = 'X';
                     moved = true;
+                }
             }
             //south (3)
             if (move == 3 && Space < 379) {
-                if (checkGrid(Space + 20))
-                    space += 20;
+                if (checkGrid(Space + 20)) {
+                    grid[Space] = '-';
+                    Space += 20;
+                    grid[Space] = 'X';
                     moved = true;
+                }
             }
             //west (4)
             if (move == 4 && Space % 10 != 1) {
-                if (checkGrid(Space - 1))
-                    space -= 1;
+                if (checkGrid(Space - 1)) {
+                    grid[Space] = '-';
+                    Space -= 1;
+                    grid[Space] = 'X';
                     moved = true;
+                }
             }
             else
                 move = possible_moves[moveTries++];
         }
-        return space;
+        return Space;
     }
     int getLife() const {
         return Life;
@@ -162,7 +171,7 @@ void startSim() {
         random_nums.push_back(i);
     }
     
-    srand(time(0));
+    srand(time(NULL));
     random_shuffle(random_nums.begin(), random_nums.end());
     for (int i = 0; i < 6; i++) {
         int doodleSpace = random_nums[i];
@@ -208,7 +217,7 @@ void startSim() {
 }*/
 
 void round() {
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 5; i++) {
         doodle[i].move();
     }
     printGrid(grid);
