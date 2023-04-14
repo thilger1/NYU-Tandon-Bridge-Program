@@ -2,34 +2,16 @@
 #include <string.h>
 using namespace std;
 
-class Vehicle {
-public:
-    ~Vehicle(){}
-    void virtual drive(){
-        cout<<"Driving a vehicle"<<endl;
-    }
-};
-
-class Car : public Vehicle {
-public:
-    void drive(){
-        cout<<"Driving a car"<<endl;
-    }
-};
-
-class Motorcycle : public Vehicle {
-public:
-    void drive(){
-        cout<<"Driving a motorcycle"<<endl;
-    }
-};
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
 int main() {
-    Vehicle* carPtr = new Car();
-    Vehicle* motoPtr = new Motorcycle();
-    carPtr->drive();
-    motoPtr->drive();
-    delete carPtr;
-    delete motoPtr;
+    int x = 5, y = 10;
+    cout<<"Before swapping: x = " << x << ", y = " << y << endl;
+    swap(&x, &y);
+    cout<< "After swapping: x = " << x << ", y = " << y << endl;
     return 0;
 }
