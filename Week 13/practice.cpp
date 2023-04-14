@@ -2,43 +2,34 @@
 #include <string.h>
 using namespace std;
 
-class Animal {
+class Vehicle {
 public:
-    ~Animal(){}
-    virtual void eat(){
-        cout<<"The animal ate!"<<endl;
-    }
-    virtual void makeSound() {
-        cout<<"ANIMAL NOISE!"<<endl;
+    ~Vehicle(){}
+    void virtual drive(){
+        cout<<"Driving a vehicle"<<endl;
     }
 };
 
-class Cat : public Animal {
+class Car : public Vehicle {
 public:
-    void eat() {
-        cout<<"The cat ate!"<<endl;
-    }
-    void makeSound() {
-        cout<<"CAT NOISE!"<<endl;
+    void drive(){
+        cout<<"Driving a car"<<endl;
     }
 };
 
-class Dog : public Animal {
+class Motorcycle : public Vehicle {
 public:
-    void eat() {
-        cout<<"The dog ate!"<<endl;
-    }
-    void makeSound() {
-        cout<<"DOG NOISE!"<<endl;
+    void drive(){
+        cout<<"Driving a motorcycle"<<endl;
     }
 };
 
 int main() {
-    Animal* dogPtr = new Dog();
-    Animal* catPtr = new Cat();
-    dogPtr->makeSound();
-    catPtr->makeSound();
-    delete dogPtr;
-    delete catPtr;
+    Vehicle* carPtr = new Car();
+    Vehicle* motoPtr = new Motorcycle();
+    carPtr->drive();
+    motoPtr->drive();
+    delete carPtr;
+    delete motoPtr;
     return 0;
 }
