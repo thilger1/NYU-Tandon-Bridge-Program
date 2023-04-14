@@ -2,39 +2,43 @@
 #include <string.h>
 using namespace std;
 
-class Shape {
+class Animal {
 public:
-    void virtual getArea() {
-        cout<<"Area of shape: "<<endl;
+    ~Animal(){}
+    virtual void eat(){
+        cout<<"The animal ate!"<<endl;
+    }
+    virtual void makeSound() {
+        cout<<"ANIMAL NOISE!"<<endl;
     }
 };
 
-class Circle : public Shape {
-private:
-    int Radius;
+class Cat : public Animal {
 public:
-    Circle() : Radius(0) {};
-    Circle(int radius) : Radius(radius) {};
-    void getArea() {
-        cout<<"Area of circle: "<< (Radius * Radius) * 3.14 << endl;
+    void eat() {
+        cout<<"The cat ate!"<<endl;
+    }
+    void makeSound() {
+        cout<<"CAT NOISE!"<<endl;
     }
 };
 
-class Rectangle : public Shape {
-private:
-    int Height;
-    int Width;
+class Dog : public Animal {
 public:
-    Rectangle() : Height(0), Width(0) {};
-    Rectangle(int height, int width) : Height(height), Width(width) {};
-    void getArea() {
-        cout<<"Area of rectangle: "<< (Height * Width)<<endl;
+    void eat() {
+        cout<<"The dog ate!"<<endl;
+    }
+    void makeSound() {
+        cout<<"DOG NOISE!"<<endl;
     }
 };
 
 int main() {
-    Shape* circlePtr = new Circle(5);
-    circlePtr->getArea();
-    delete circlePtr;
+    Animal* dogPtr = new Dog();
+    Animal* catPtr = new Cat();
+    dogPtr->makeSound();
+    catPtr->makeSound();
+    delete dogPtr;
+    delete catPtr;
     return 0;
 }
