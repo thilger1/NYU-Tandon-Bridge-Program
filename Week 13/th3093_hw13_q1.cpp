@@ -82,10 +82,11 @@ public:
         int direction = rand() % 4;
         //check for ant
         if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
+            updateGrid(XCord, YCord, '-');
             switch(direction){
                 //north
                 case 0:
-                    grid[XCord][YCord] = '-';
+                    
                     YCord--;
                     grid[XCord][YCord] = 'X';                    
                 break;
