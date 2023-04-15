@@ -195,19 +195,22 @@ public:
     int move() {
         vector <int> possible_moves;
         for (int i = 0; i < 4; i++)
-            possible_moves.push_back(i);
+            possible_moves.push_back(i+1);
         random_shuffle(possible_moves.begin(), possible_moves.end());
         
         //north (1)
         int moveTries = 0;
         int move = possible_moves[moveTries];
+        cout<<move<<endl;
         bool moved = false;
         while (moved == false && moveTries < 4) {
             if (move == 1 && Space > 19) {
                 if (checkGrid(Space - 20)) {
                     grid[Space] = '-';
+                    cout<<"Old space: "<<Space<<endl;
                     Space -= 20;
                     grid[Space] = 'o';
+                    cout<<"New space: "<<Space<<endl;
                     moved = true;
                 }
             }
@@ -292,6 +295,7 @@ void startSim() {
 
     for (int i = 5; i < 105; i++) {
         int antSpace = random_nums[i];
+        cout<<"Ant space: "<<antSpace<<endl;
         grid[antSpace] = 'o';
         Ant ant(antSpace);
         ants.push_back(ant);
