@@ -34,7 +34,7 @@ public:
     virtual int move() {
         vector <int> possible_moves;
         for (int i = 0; i < 4; i++)
-            possible_moves.push_back(i);
+            possible_moves.push_back(i+1);
         random_shuffle(possible_moves.begin(), possible_moves.end());
         
         //north (1)
@@ -124,7 +124,7 @@ public:
     int move() {
         vector <int> possible_moves;
         for (int i = 0; i < 4; i++)
-            possible_moves.push_back(i);
+            possible_moves.push_back(i+1);
         random_shuffle(possible_moves.begin(), possible_moves.end());
         
         //north (1)
