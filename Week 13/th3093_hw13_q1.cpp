@@ -16,18 +16,9 @@ const int GRID_SIZE = 400;
 char grid[20][20];
 vector<int> possible_moves;
 
-bool checkGridOpen(int x, int y) {
-    if (grid[x][y] == '-')
-        return true;
-    else
-        return false;
-}
-
-bool checkGridOffMap(int new_index) {
-    switch(new_index) {
-
-    }
-}
+void updateGrid(int, int, char);
+bool checkGridOpen(int, int);
+bool checkGridOffMap(int, int, int);
 
 class Organism {
 protected:
@@ -179,6 +170,19 @@ void printGrid(char *grid[20]) {
     cout<<"\n\n Hit ENTER to continue\n"<<endl;
 }
 
+bool checkGridOpen(int x, int y) {
+    if (grid[x][y] == '-')
+        return true;
+    else
+        return false;
+}
+
+bool checkGridOn(int x, int y, int direction) {
+    switch(direction) {
+        
+    }
+}
+
 void startSim() {
     vector<int> random_nums_x;
     vector<int> random_nums_y;
@@ -256,7 +260,6 @@ void round() {
 
 
 int main() {
-    populateMoves(possible_moves);
     startSim();
     char temp;
     while (temp != -1) {
