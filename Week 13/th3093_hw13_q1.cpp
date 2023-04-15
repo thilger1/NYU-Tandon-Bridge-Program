@@ -13,14 +13,20 @@ const char DOODLEBUG = 'X';
 const char ANT = 'o';
 const char SPACE = '-';
 const int GRID_SIZE = 400;
-vector<char> grid;
+char grid[20][20];
+vector<int> possible_moves;
 
-bool checkGrid(int new_index) {
-
-    if (grid[new_index] == '-')
+bool checkGridOpen(int x, int y) {
+    if (grid[x][y] == '-')
         return true;
     else
         return false;
+}
+
+bool checkGridOffMap(int new_index) {
+    switch(new_index) {
+
+    }
 }
 
 class Organism {
@@ -29,57 +35,8 @@ protected:
     int Space;
     int Life;
 public:
-    int possible_moves[4] = {1, 2, 3, 4};
     //pass optional parameter to move it in direction of ant to eat?
     virtual int move() {
-        vector <int> possible_moves;
-        for (int i = 0; i < 4; i++)
-            possible_moves.push_back(i+1);
-        random_shuffle(possible_moves.begin(), possible_moves.end());
-        
-        //north (1)
-        int moveTries = 0;
-        int move = possible_moves[moveTries];
-        bool moved = false;
-        while (moved == false && moveTries < 4) {
-            if (move == 1 && Space > 19) {
-                if (checkGrid(Space - 20)) {
-                    grid[Space] = '-';
-                    Space -= 20;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            //east (2)
-            if (move == 2 && Space % 10 != 0) {
-                if (checkGrid(Space + 1)) {
-                    grid[Space] = '-';
-                    Space += 1;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            //south (3)
-            if (move == 3 && Space < 379) {
-                if (checkGrid(Space + 20)) {
-                    grid[Space] = '-';
-                    Space += 20;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            //west (4)
-            if (move == 4 && Space % 10 != 1) {
-                if (checkGrid(Space - 1)) {
-                    grid[Space] = '-';
-                    Space -= 1;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            else
-                move = possible_moves[moveTries++];
-        }
         return Space;
     }
     int getLife() const {
@@ -104,8 +61,6 @@ public:
 
 };
 
-
-
 class Doodlebug: public Organism {
 private:
     char Shape = 'X';
@@ -121,58 +76,51 @@ public:
         return bug;
     }
 
-    int move() {
-        vector <int> possible_moves;
-        for (int i = 0; i < 4; i++)
-            possible_moves.push_back(i+1);
-        random_shuffle(possible_moves.begin(), possible_moves.end());
-        
+    void move() { 
         //north (1)
-        int moveTries = 0;
-        int move = possible_moves[moveTries];
         bool moved = false;
-        while (moved == false && moveTries < 4) {
-            if (move == 1 && Space > 19) {
-                if (checkGrid(Space - 20)) {
-                    grid[Space] = '-';
-                    Space -= 20;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
+        int direction = rand() % 4;
+        //check for ant
+        if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
+            switch(direction){
+                //north
+                case 0:
+                    grid[XCord][YCord] = '-';
+                    YCord--;
+                    grid[XCord][YCord] = 'X';                    
+                break;
+                //east
+                case 1:
+                    XCord++;
+                    break;
+                //south
+                case 2:
+                    YCord++;
+                    break;
+                //west
+                case 3:
+                    XCord--;
+                    break;
             }
-            //east (2)
-            if (move == 2 && Space % 10 != 0) {
-                if (checkGrid(Space + 1)) {
-                    grid[Space] = '-';
-                    Space += 1;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            //south (3)
-            if (move == 3 && Space < 379) {
-                if (checkGrid(Space + 20)) {
-                    grid[Space] = '-';
-                    Space += 20;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            //west (4)
-            if (move == 4 && Space % 10 != 1) {
-                if (checkGrid(Space - 1)) {
-                    grid[Space] = '-';
-                    Space -= 1;
-                    grid[Space] = 'X';
-                    moved = true;
-                }
-            }
-            else
-                move = possible_moves[moveTries++];
         }
-        return Space;
-    }
+        else
+            return;
+        }
 
+        switch(direction) {
+            //north
+
+            case 1:
+                if (y > 0) {
+                    y -= 20;
+                }
+            case 
+        }
+
+
+        if (checkGridOpen && checkGridOn)
+
+    }
     void breed() {
         if(checkGrid) {
             //random space
@@ -193,59 +141,16 @@ public:
 
     Ant(int space) {Space = space; Life = 0;}
     int move() {
-        vector <int> possible_moves;
-        for (int i = 0; i < 4; i++)
-            possible_moves.push_back(i+1);
         random_shuffle(possible_moves.begin(), possible_moves.end());
-        
+        for (int i = 0; i < 4; i++) {
+            cout<<possible_moves[i]<<" ";
+        cout<<endl;
+        }
         //north (1)
         int moveTries = 0;
         int move = possible_moves[moveTries];
         cout<<move<<endl;
-        bool moved = false;
-        while (moved == false && moveTries < 4) {
-            if (move == 1 && Space > 19) {
-                if (checkGrid(Space - 20)) {
-                    grid[Space] = '-';
-                    cout<<"Old space: "<<Space<<endl;
-                    Space -= 20;
-                    grid[Space] = 'o';
-                    cout<<"New space: "<<Space<<endl;
-                    moved = true;
-                }
-            }
-            //east (2)
-            if (move == 2 && Space % 10 != 0) {
-                if (checkGrid(Space + 1)) {
-                    grid[Space] = '-';
-                    Space += 1;
-                    grid[Space] = 'o';
-                    moved = true;
-                }
-            }
-            //south (3)
-            if (move == 3 && Space < 379) {
-                if (checkGrid(Space + 20)) {
-                    grid[Space] = '-';
-                    Space += 20;
-                    grid[Space] = 'o';
-                    moved = true;
-                }
-            }
-            //west (4)
-            if (move == 4 && Space % 10 != 1) {
-                if (checkGrid(Space - 1)) {
-                    grid[Space] = '-';
-                    Space -= 1;
-                    grid[Space] = 'o';
-                    moved = true;
-                }
-            }
-            else
-                move = possible_moves[moveTries++];
-        }
-        return Space;
-    }
+        
 
     //Ant breed() {
     //}
@@ -264,30 +169,31 @@ public:
 vector<Doodlebug> doodle;
 vector<Ant> ants;
 
-void printGrid(vector <char> vect) {
-    int counter = 0;
+void printGrid(char *grid[20]) {
     for (int i = 0; i < GRID_SIZE; i++) {
-        if (counter == 20) {
-            cout<<endl;
-            counter = 0;
+        for (int j = 0; j < GRID_SIZE; j++) {
+            cout<<grid[i][j]<<' ';
         }
-        cout<<vect[i]<<' ';
-        counter++;
     }
     cout<<"\n\n Hit ENTER to continue\n"<<endl;
 }
 
 void startSim() {
-    vector<int> random_nums;
+    vector<int> random_nums_x;
+    vector<int> random_nums_y;
     for (int i = 0; i < GRID_SIZE; i++) {
-        grid.push_back('-');
-        random_nums.push_back(i);
+        random_nums_x.push_back(i);
+        random_nums_y.push_back(i);
+        for (int j = 0; j < GRID_SIZE; j++) {
+            grid[i][j] = '-';
+        }
     }
     
     srand(time(NULL));
-    random_shuffle(random_nums.begin(), random_nums.end());
+    random_shuffle(random_nums_x.begin(), random_nums_x.end());
+    random_shuffle(random_nums_y.begin(), random_nums_y.end());
     for (int i = 0; i < 6; i++) {
-        int doodleSpace = random_nums[i];
+        int doodleSpace = random_nums_x[i];
         grid[doodleSpace] = 'X';
         Doodlebug doodlebug(doodleSpace);
         doodle.push_back(doodlebug);
@@ -333,6 +239,10 @@ void startSim() {
         //
 }*/
 
+void updateGrid(int x, int y, char symbol){
+    grid[x][y] = symbol;
+}
+
 void round() {
     for (int i = 0; i < doodle.size(); i++) {
         doodle[i].move();
@@ -345,6 +255,7 @@ void round() {
 
 
 int main() {
+    populateMoves(possible_moves);
     startSim();
     char temp;
     while (temp != -1) {
