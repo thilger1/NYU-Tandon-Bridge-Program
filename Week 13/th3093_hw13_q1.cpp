@@ -17,8 +17,8 @@ char grid[20][20];
 vector<int> possible_moves;
 
 void updateGrid(int, int, char);
-bool checkGridOpen(int, int);
-bool checkGridOffMap(int, int, int);
+bool checkGridOpen(int, int, int);
+bool checkGridOn(int, int, int);
 
 class Organism {
 protected:
@@ -27,9 +27,7 @@ protected:
     int Life;
 public:
     //pass optional parameter to move it in direction of ant to eat?
-    virtual int move() {
-        return Space;
-    }
+
     int getLife() const {
         return Life;
     }
@@ -54,17 +52,16 @@ public:
 
 class Doodlebug: public Organism {
 private:
-    char Shape = 'X';
+    int XCord;
+    int YCord;
+    int Life;
 public:
-    friend Doodlebug operator ++(Doodlebug& bug) {
-        int life = bug.getLife();
-        life += 1;
-        if (life == 8) {
-            //breed();
-            life = 0;
-        }
-        bug.setLife(life);
-        return bug;
+    void setXCord(int cord) {
+        XCord = cord;
+    }
+
+    void setYCord(int cord) {
+        YCord = cord;
     }
 
     void move() { 
@@ -76,8 +73,7 @@ public:
             updateGrid(XCord, YCord, '-');
             switch(direction){
                 //north
-                case 0:
-                    
+                case 0:  
                     YCord--;
                     grid[XCord][YCord] = 'X';                    
                 break;
@@ -99,39 +95,34 @@ public:
             return;
         }
 
-        switch(direction) {
-            //north
-
-            case 1:
-                if (y > 0) {
-                    y -= 20;
-                }
-            case 
-        }
-
-
-        if (checkGridOpen && checkGridOn)
-
-    }
-    void breed() {
+   /* void breed() {
         if(checkGrid) {
             //random space
             //duplicate, call constructor
         }
     }
+    */
 
-    Doodlebug(int space) {Space = space; Life = 0;}
+    Doodlebug(int x, int y) {XCord = x, YCord = y, Life = 0;}
 };
 
 class Ant : public Organism {
 private:
-    char Shape = 'o';
-    int Space;
+    int XCord;
+    int YCord;
     //increment life every round, 
     int Life = 0;
 public:
+    void setXCord(int cord) {
+        XCord = cord;
+    }
 
-    Ant(int space) {Space = space; Life = 0;}
+    void setYCord(int cord) {
+        YCord = cord;
+    }
+
+    Ant(int x, int y) {XCord = x, YCord = y, Life = 0;}
+
     int move() {
         random_shuffle(possible_moves.begin(), possible_moves.end());
         for (int i = 0; i < 4; i++) {
@@ -142,26 +133,14 @@ public:
         int moveTries = 0;
         int move = possible_moves[moveTries];
         cout<<move<<endl;
-        
 
-    //Ant breed() {
-    //}
-    friend Ant operator ++(Ant& bug) {
-        int life = bug.getLife();
-        life += 1;
-        if (life == 3) {
-            //breed();
-            life = 0;
-        }
-        bug.setLife(life);
-        return bug;
     }
 };
 
 vector<Doodlebug> doodle;
 vector<Ant> ants;
 
-void printGrid(char *grid[20]) {
+void printGrid(char arr[][20]) {
     for (int i = 0; i < GRID_SIZE; i++) {
         for (int j = 0; j < GRID_SIZE; j++) {
             cout<<grid[i][j]<<' ';
@@ -170,7 +149,7 @@ void printGrid(char *grid[20]) {
     cout<<"\n\n Hit ENTER to continue\n"<<endl;
 }
 
-bool checkGridOpen(int x, int y) {
+bool checkGridOpen(int x, int y, int direction) {
     if (grid[x][y] == '-')
         return true;
     else
@@ -178,9 +157,7 @@ bool checkGridOpen(int x, int y) {
 }
 
 bool checkGridOn(int x, int y, int direction) {
-    switch(direction) {
-        
-    }
+    return true;
 }
 
 void startSim() {
@@ -198,51 +175,23 @@ void startSim() {
     random_shuffle(random_nums_x.begin(), random_nums_x.end());
     random_shuffle(random_nums_y.begin(), random_nums_y.end());
     for (int i = 0; i < 6; i++) {
-        int doodleSpace = random_nums_x[i];
-        grid[doodleSpace] = 'X';
-        Doodlebug doodlebug(doodleSpace);
+        int doodleX = random_nums_x[i];
+        int doodleY = random_nums_y[i];
+        grid[doodleX][doodleY] = 'X';
+        Doodlebug doodlebug(doodleX, doodleY);
         doodle.push_back(doodlebug);
     }
 
     for (int i = 5; i < 105; i++) {
-        int antSpace = random_nums[i];
-        cout<<"Ant space: "<<antSpace<<endl;
-        grid[antSpace] = 'o';
-        Ant ant(antSpace);
+        int antX = random_nums_x[i];
+        int antY = random_nums_y[i];
+        grid[antX][antY] = 'o';
+        Ant ant(antX, antY);
         ants.push_back(ant);
     }
     printGrid(grid);
     
 }
-
-//intialize grid
-    //20x20 2-dimensional array
-    //choose random spaces for 5 dbs
-    //choose random spaces for 100 ants
-    //intialize grid based on spaces for ants and dbs
-
-    //5 doodlebugs
-        //Organism class
-            //doodlebug class
-    //100 ants
-        //Organism class
-            //ant class
-
-//Organism class
-    //movement
-    //
-
-//time step
-    //increment step #
-    //move ants & dbs
-    //check for eating
-    //check for breeding
-    //check for starvation
-/*int doodleBug() {
-
-    //initialize grid
-        //
-}*/
 
 void updateGrid(int x, int y, char symbol){
     grid[x][y] = symbol;
@@ -266,5 +215,6 @@ int main() {
         cin.get(temp);
         round();
     }
+    
     return 0;
 }

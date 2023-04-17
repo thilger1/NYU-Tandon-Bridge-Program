@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -34,7 +34,7 @@ class Organism{
         Organism(Organism** g, int pos) {
             setGame(g);
             setOrgID(-1);
-            setLoc(-1);
+            setLoc(pos);
         };
 
         virtual void move(Organism** g, int i) {};
@@ -78,9 +78,8 @@ class Doodlebug:public Organism {
 void Doodlebug::move(Organism** g, int i) {
     int sqrtGridSize = sqrt(gridSize);
     bool antNearby = false;
-    int direction = rand() % 4;
     // Check for ants in adjacent cells
-    if (i >= sqrtGridSize) {
+    if (i >= sqrtGridSize && g[i - sqrtGridSize]->getOrgID() >= doodlebugCount && g[i - sqrtGridSize]->getOrgID() < doodlebugCount+antCount) { // up
         antNearby = true;
         setTimeTillStarve(originalTimeTillStarve);
         delete g[i - sqrtGridSize];
@@ -88,7 +87,7 @@ void Doodlebug::move(Organism** g, int i) {
         swap(g[i], g[i - sqrtGridSize]);
         setMovedThisRound(true);
         return;
-    } else if (i < gridSize - sqrtGridSize) {
+    } else if (i < gridSize - sqrtGridSize && g[i + sqrtGridSize]->getOrgID() >= doodlebugCount && g[i + sqrtGridSize]->getOrgID() < doodlebugCount+antCount) { // down
         antNearby = true;
         setTimeTillStarve(originalTimeTillStarve);
         delete g[i + sqrtGridSize];
@@ -96,7 +95,7 @@ void Doodlebug::move(Organism** g, int i) {
         swap(g[i], g[i + sqrtGridSize]);
         setMovedThisRound(true);
         return;
-    } else if (i % sqrtGridSize != 0) {
+    } else if (i % sqrtGridSize != 0 && g[i - 1]->getOrgID() >= doodlebugCount && g[i - 1]->getOrgID() < doodlebugCount+antCount) { // left
         antNearby = true;
         setTimeTillStarve(originalTimeTillStarve);
         delete g[i - 1];
@@ -104,7 +103,7 @@ void Doodlebug::move(Organism** g, int i) {
         swap(g[i], g[i - 1]);
         setMovedThisRound(true);
         return;
-    } else if ((i + 1) % sqrtGridSize != 0) {
+    } else if ((i + 1) % sqrtGridSize != 0 && g[i + 1]->getOrgID() >= doodlebugCount && g[i + 1]->getOrgID() < doodlebugCount+antCount) { // right
         antNearby = true;
         setTimeTillStarve(originalTimeTillStarve);
         delete g[i + 1];
@@ -115,6 +114,7 @@ void Doodlebug::move(Organism** g, int i) {
     }
 
     if (!antNearby) {
+        int direction = rand() % 4;
         // Move in a random direction
         switch (direction) {
             case 0: // move up
@@ -150,41 +150,34 @@ void Doodlebug::move(Organism** g, int i) {
             break;
         }
     }
+    setTimeTillBreed(getTimeTillBreed() - 1);
 };
 
 void Doodlebug::starve(Organism** g, int i) {
-    // delete[] g[i];
-    // g[i] = new Organism(g, i);
+    delete[] g[i];
+    g[i] = new Organism(g, i);
 }
 
 void Doodlebug::breed(Organism** g, int i) {
-     int sqrtGridSize = sqrt(gridSize);
-     if (i >= sqrtGridSize && g[i - sqrtGridSize]->getOrgID() == -1) {
-         delete g[i - sqrtGridSize];
-         g[i - sqrtGridSize] = new Doodlebug(g, i - sqrtGridSize);
-         setTimeTillBreed(originalDoodleTimeTillBreed);
-         return;
-     } else if (i < gridSize - sqrtGridSize && g[i + sqrtGridSize]->getOrgID() == -1) {
-         delete g[i + sqrtGridSize];
-         g[i + sqrtGridSize] = new Doodlebug(g, i + sqrtGridSize);
-         setTimeTillBreed(originalDoodleTimeTillBreed);
-         return;
-     } else if (i % sqrtGridSize != 0 && g[i - 1]->getOrgID() == -1) {
-         delete g[i - 1];
-         g[i - 1] = new Doodlebug(g, i - 1);
-         setTimeTillBreed(originalDoodleTimeTillBreed);
-         return;
-     } else if ((i + 1) % sqrtGridSize != 0 && g[i + 1]->getOrgID() == -1) {
-         delete g[i + 1];
-         g[i + 1] = new Doodlebug(g, i + 1);
-         setTimeTillBreed(originalDoodleTimeTillBreed);
-         return;
-     }
+    int sqrtGridSize = sqrt(gridSize);
+    setTimeTillBreed(originalDoodleTimeTillBreed);
+    if (i >= sqrtGridSize && g[i - sqrtGridSize]->getOrgID() == -1) { // up
+        delete[] g[i - sqrtGridSize];
+        g[i - sqrtGridSize] = new Doodlebug(g, i);
+    } else if (i < gridSize - sqrtGridSize && g[i + sqrtGridSize]->getOrgID() == -1) { // down
+        delete[] g[i + sqrtGridSize];
+        g[i + sqrtGridSize] = new Doodlebug(g, i);
+    } else if (i % sqrtGridSize != 0 && g[i - 1]->getOrgID() == -1) { // left
+        delete[] g[i - 1];
+        g[i - 1] = new Doodlebug(g, i);
+    } else if ((i + 1) % sqrtGridSize != 0 && g[i + 1]->getOrgID() == -1) { // right
+        delete[] g[i + 1];
+        g[i + 1] = new Doodlebug(g, i);
+    }
 }
 
 class Ant:public Organism {
     private:
-        int timeTillBreed;
     public:
         Ant(Organism** g, int loc) {
             setGame(g);
@@ -193,7 +186,6 @@ class Ant:public Organism {
             setTimeTillBreed(originalAntTimeTillBreed);
             setMovedThisRound(false);
         }
-        void setTimeTillBreed(int val) {timeTillBreed = val;};
         void move(Organism** g, int i);
         void starve(Organism**g, int i) {};
         void breed(Organism** g, int i);
@@ -228,31 +220,25 @@ void Ant::move(Organism** g, int i) {
             }
         break;
     }
+    setTimeTillBreed(getTimeTillBreed() - 1);
 };
 
 void Ant::breed(Organism** g, int i) {
     int sqrtGridSize = sqrt(gridSize);
-    if (i >= sqrtGridSize && g[i - sqrtGridSize]->getOrgID() == -1) {
-         delete g[i - sqrtGridSize];
-         g[i - sqrtGridSize] = new Ant(g, i - sqrtGridSize);
-         setTimeTillBreed(originalAntTimeTillBreed);
-         return;
-     } else if (i < gridSize - sqrtGridSize && g[i + sqrtGridSize]->getOrgID() == -1) {
-         delete g[i + sqrtGridSize];
-         g[i + sqrtGridSize] = new Ant(g, i + sqrtGridSize);
-         setTimeTillBreed(originalAntTimeTillBreed);
-         return;
-     } else if (i % sqrtGridSize != 0 && g[i - 1]->getOrgID() == -1) {
-         delete g[i - 1];
-         g[i - 1] = new Ant(g, i - 1);
-         setTimeTillBreed(originalAntTimeTillBreed);
-         return;
-     } else if ((i + 1) % sqrtGridSize != 0 && g[i + 1]->getOrgID() == -1) {
-         delete g[i + 1];
-         g[i + 1] = new Ant(g, i + 1);
-         setTimeTillBreed(originalAntTimeTillBreed);
-         return;
-     }
+    setTimeTillBreed(originalAntTimeTillBreed);
+    if (i >= sqrtGridSize && g[i - sqrtGridSize]->getOrgID() == -1) { // up
+        delete[] g[i - sqrtGridSize];
+        g[i - sqrtGridSize] = new Ant(g, i);
+    } else if (i < gridSize - sqrtGridSize && g[i + sqrtGridSize]->getOrgID() == -1) { // down
+        delete[] g[i + sqrtGridSize];
+        g[i + sqrtGridSize] = new Ant(g, i);
+    } else if (i % sqrtGridSize != 0 && g[i - 1]->getOrgID() == -1) { // left
+        delete[] g[i - 1];
+        g[i - 1] = new Ant(g, i);
+    } else if ((i + 1) % sqrtGridSize != 0 && g[i + 1]->getOrgID() == -1) { // right
+        delete[] g[i + 1];
+        g[i + 1] = new Ant(g, i);
+    }
 }
 
 class Game {
@@ -287,7 +273,7 @@ Game::Game() {
             game[i] = orgPtr;
         }
     }
-    srand(time(0));
+    srand(time(nullptr));
     for(int i = 0; i < gridSize; i++) {
         int new_i = rand() % gridSize;
         swap(game[i], game[new_i]);
@@ -331,6 +317,7 @@ void Game::gameOver() {
     }
     delete[] game;
 };
+
 
 void Game::display() {
     int countOfAnts = 0;
