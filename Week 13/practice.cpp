@@ -1,18 +1,14 @@
+#include <random>
 #include <iostream>
 using namespace std;
 
-int findLargest(int* array, int n) {
-    int largest = *array;
-    for (int i = 1; i < n; i++) {
-        if (array[i] > largest)
-            largest = array[i];
-    }
-    return largest;
-}
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 3);
 
-int main() {
-    int arr[5] = {3, 20, 5, 9, 1};
-    int answer = findLargest(arr, 5);
-    cout<<answer<<endl;
+    int random_number = dis(gen);
+
+    int main() {
+    cout<<random_number<<endl;
     return 0;
 }

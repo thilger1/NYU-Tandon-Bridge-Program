@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <random>
 #include <iostream>
 #include <string>
@@ -8,6 +7,11 @@ using namespace std;
 //all doodlebugs move before ants do
 //after 3 moves, ants reproduce to available space
 //after 8 moves, doodlebugs reproduce to available space
+
+//random num generator. Access using dis(gen)
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_int_distribution<> dis(0, 3);
 
 const char DOODLEBUG = 'X';
 const char ANT = 'o';
@@ -34,8 +38,11 @@ public:
     int getSpace() const {
         return Space;
     }
-    void setLife(int life) {
-        Life = life;
+    void increaseLife() {
+        Life += 1;
+    }
+    void resetLife() {
+        Life = 0;
     }
 
     //breed();
@@ -67,7 +74,7 @@ public:
     void move() { 
         //north (1)
         bool moved = false;
-        int direction = rand() % 4;
+        int direction = dis(gen);
         //check for ant
         if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
             grid[XCord][YCord] = '-';
@@ -128,28 +135,48 @@ public:
         return Life;
     }
 
+    void move() { 
+        //north (1)
+        bool moved = false;
+        int direction = dis(gen);
+        //check for ant
+        if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
+            grid[XCord][YCord] = '-';
+            switch(direction){
+                //north
+                case 0:  
+                    YCord--;                
+                break;
+                //east
+                case 1:
+                    XCord++;
+                    break;
+                //south
+                case 2:
+                    YCord++;
+                    break;
+                //west
+                case 3:
+                    XCord--;
+                    break;
+                default:
+                    break;
+            }
+            grid[XCord][YCord] = 'o';
+        }
+        else
+            ;
+    }
+
     Ant(int x, int y) {XCord = x, YCord = y, Life = 0;}
     ~Ant() {};
 
-    /*int move() {
-        random_shuffle(possible_moves.begin(), possible_moves.end());
-        for (int i = 0; i < 4; i++) {
-            cout<<possible_moves[i]<<" ";
-        cout<<endl;
-        }
-        //north (1)
-        int moveTries = 0;
-        int move = possible_moves[moveTries];
-        cout<<move<<endl;
-    }
-    */
 };
 
 vector<Doodlebug> doodle;
 vector<Ant> ants;
 
 void printGrid(char arr[][20]) {
-    cout<<"\nCalled"<<endl;
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
             cout<<grid[i][j]<<' ';
@@ -231,17 +258,14 @@ void startSim() {
             grid[i][j] = '-';
         }
     }
-    cout<<"finished";
+
     
     srand(time(NULL));
-    cout<<"Shuff";
     i = 0;
     while (i < 5) {
         int doodleX = rand() % 20;
         int doodleY = rand() % 20;
         if (grid[doodleX][doodleY] == '-') {
-            cout<<doodleX<<" "<<doodleY<<endl;
-            cout<<"Success"<<endl;
             grid[doodleX][doodleY] = 'X';
             Doodlebug doodlebug(doodleX, doodleY);
             doodle.push_back(doodlebug);
@@ -251,7 +275,6 @@ void startSim() {
             
         }
     }
-    cout<<"ants";
 
     i = 0;
     while (i < 100) {
@@ -264,7 +287,6 @@ void startSim() {
             i++;
         }
     }
-    cout<<"bugs";
     printGrid(grid);
     
 }
@@ -273,29 +295,47 @@ void updateGrid(int x, int y, char symbol){
     grid[x][y] = symbol;
 }
 
+int roundNumber = 0;
 void round() {
     for (int i = 0; i < doodle.size(); i++) {
         doodle[i].move();
     }
-    /*
     for (int i = 0; i < ants.size(); i++) {
         ants[i].move();
     }
+    roundNumber++;
+    cout<<"round: "<<roundNumber<<endl;
+    increaseLives();
+
     printGrid(grid);
-    */
+}
+
+void increaseLives() {
+    for (int i = 0; i < doodle.size(); i++) {
+        doodle[i].increaseLife();
+        int life = doodle[i].getLife();
+        if (life == 7) {
+            //doodle[i].breed();
+            //doodle[i].resetLife(0);
+        }
+    }
+    for (int i = 0; i < ants.size(); i++) {
+        ants[i].increaseLife();
+        int life = doodle[i].getLife();
+        if (life == 3) {
+            //ants[i].breed();
+            //ants[i].resetLife(0);
+        }
+    }
 }
 
 
 int main() {
-
-    cout<<"main"<<endl;
-    
     startSim();
     char temp;
     while (temp != -1) {
         cin.get(temp);
         round();
     }
-    
     return 0;
 }
