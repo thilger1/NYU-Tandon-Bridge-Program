@@ -70,12 +70,11 @@ public:
         int direction = rand() % 4;
         //check for ant
         if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
-            updateGrid(XCord, YCord, '-');
+            grid[XCord][YCord] = '-';
             switch(direction){
                 //north
                 case 0:  
-                    YCord--;
-                    grid[XCord][YCord] = 'X';                    
+                    YCord--;                
                 break;
                 //east
                 case 1:
@@ -89,11 +88,14 @@ public:
                 case 3:
                     XCord--;
                     break;
+                default:
+                    break;
             }
+            grid[XCord][YCord] = 'X';
         }
         else
-            return;
-        }
+            ;
+    }
 
    /* void breed() {
         if(checkGrid) {
@@ -139,7 +141,6 @@ public:
         int moveTries = 0;
         int move = possible_moves[moveTries];
         cout<<move<<endl;
-
     }
     */
 };
@@ -159,13 +160,65 @@ void printGrid(char arr[][20]) {
 }
 
 bool checkGridOpen(int x, int y, int direction) {
-    if (grid[x][y] == '-')
-        return true;
-    else
-        return false;
+    switch (direction) {
+        if (checkGridOn) {
+            case 0:
+                if (grid[x][y-1] == '-')
+                    return true;
+                else
+                    return false;
+                break;
+        case 1:
+            if (grid[x+1][y] == '-')
+                    return true;
+                else
+                    return false;
+            break;
+        case 2:
+            if (grid[x][y+1] == '-')
+                    return true;
+                else
+                    return false;
+            break;
+        case 3:
+            if (grid[x-1][y] == '-')
+                    return true;
+                else
+                    return false;
+            break;
+        }
+        else
+            return false;
+    }
 }
 
 bool checkGridOn(int x, int y, int direction) {
+    switch (direction) {
+        case 0:
+            if (y != 0)
+                return true;
+            else
+                return false;
+            break;
+        case 1:
+            if (x != 19 == 0)
+                return true;
+            else
+                return false;
+            break;
+        case 2:
+            if (y != 19)
+                return true;
+            else
+                return false;
+            break;
+        case 3:
+            if (x != 0)
+                return true;
+            else
+                return false;
+            break;
+    }
     return true;
 }
 
@@ -173,8 +226,8 @@ void startSim() {
     int i;
     vector<int> random_nums_x;
     vector<int> random_nums_y;
-    for (i = 1; i <= 20; i++) {
-        for (int j = 1; j <= 20; j++) {
+    for (i = 0; i < 20; i++) {
+        for (int j = 0; j < 20; j++) {
             grid[i][j] = '-';
         }
     }
@@ -224,11 +277,12 @@ void round() {
     for (int i = 0; i < doodle.size(); i++) {
         doodle[i].move();
     }
+    /*
     for (int i = 0; i < ants.size(); i++) {
         ants[i].move();
     }
     printGrid(grid);
-    
+    */
 }
 
 
