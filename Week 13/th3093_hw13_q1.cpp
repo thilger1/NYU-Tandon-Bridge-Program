@@ -104,6 +104,7 @@ public:
     */
 
     Doodlebug(int x, int y) {XCord = x, YCord = y, Life = 0;}
+    ~Doodlebug() {};
 };
 
 class Ant : public Organism {
@@ -121,9 +122,14 @@ public:
         YCord = cord;
     }
 
-    Ant(int x, int y) {XCord = x, YCord = y, Life = 0;}
+    int getLife(){
+        return Life;
+    }
 
-    int move() {
+    Ant(int x, int y) {XCord = x, YCord = y, Life = 0;}
+    ~Ant() {};
+
+    /*int move() {
         random_shuffle(possible_moves.begin(), possible_moves.end());
         for (int i = 0; i < 4; i++) {
             cout<<possible_moves[i]<<" ";
@@ -135,16 +141,19 @@ public:
         cout<<move<<endl;
 
     }
+    */
 };
 
 vector<Doodlebug> doodle;
 vector<Ant> ants;
 
 void printGrid(char arr[][20]) {
-    for (int i = 0; i < GRID_SIZE; i++) {
-        for (int j = 0; j < GRID_SIZE; j++) {
+    cout<<"\nCalled"<<endl;
+    for (int i = 0; i < 20; i++) {
+        for (int j = 0; j < 20; j++) {
             cout<<grid[i][j]<<' ';
         }
+        cout<<endl;
     }
     cout<<"\n\n Hit ENTER to continue\n"<<endl;
 }
@@ -161,34 +170,48 @@ bool checkGridOn(int x, int y, int direction) {
 }
 
 void startSim() {
+    int i;
     vector<int> random_nums_x;
     vector<int> random_nums_y;
-    for (int i = 0; i < GRID_SIZE; i++) {
-        random_nums_x.push_back(i);
-        random_nums_y.push_back(i);
-        for (int j = 0; j < GRID_SIZE; j++) {
+    for (i = 1; i <= 20; i++) {
+        for (int j = 1; j <= 20; j++) {
             grid[i][j] = '-';
         }
     }
+    cout<<"finished";
     
     srand(time(NULL));
-    random_shuffle(random_nums_x.begin(), random_nums_x.end());
-    random_shuffle(random_nums_y.begin(), random_nums_y.end());
-    for (int i = 0; i < 6; i++) {
-        int doodleX = random_nums_x[i];
-        int doodleY = random_nums_y[i];
-        grid[doodleX][doodleY] = 'X';
-        Doodlebug doodlebug(doodleX, doodleY);
-        doodle.push_back(doodlebug);
+    cout<<"Shuff";
+    i = 0;
+    while (i < 5) {
+        int doodleX = rand() % 20;
+        int doodleY = rand() % 20;
+        if (grid[doodleX][doodleY] == '-') {
+            cout<<doodleX<<" "<<doodleY<<endl;
+            cout<<"Success"<<endl;
+            grid[doodleX][doodleY] = 'X';
+            Doodlebug doodlebug(doodleX, doodleY);
+            doodle.push_back(doodlebug);
+            i++;
+        }
+        else {
+            
+        }
     }
+    cout<<"ants";
 
-    for (int i = 5; i < 105; i++) {
-        int antX = random_nums_x[i];
-        int antY = random_nums_y[i];
-        grid[antX][antY] = 'o';
-        Ant ant(antX, antY);
-        ants.push_back(ant);
+    i = 0;
+    while (i < 100) {
+        int antX = rand() % 20;
+        int antY = rand() % 20;
+        if (grid[antX][antY] == '-') {
+            grid[antX][antY] = 'o';
+            Ant ant(antX, antY);
+            ants.push_back(ant);
+            i++;
+        }
     }
+    cout<<"bugs";
     printGrid(grid);
     
 }
@@ -205,10 +228,14 @@ void round() {
         ants[i].move();
     }
     printGrid(grid);
+    
 }
 
 
 int main() {
+
+    cout<<"main"<<endl;
+    
     startSim();
     char temp;
     while (temp != -1) {
