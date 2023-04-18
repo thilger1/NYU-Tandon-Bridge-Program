@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 //20x20 grid, 5 dooglebugs, 100 ants
 //all doodlebugs move before ants do
@@ -18,16 +19,20 @@ const char ANT = 'o';
 const char SPACE = '-';
 const int GRID_SIZE = 400;
 char grid[20][20];
+class Doodlebug;
+class Ant;
+vector<Doodlebug> doodle;
+vector<Ant> ants;
 vector<int> possible_moves;
 
 void updateGrid(int, int, char);
 bool checkGridOpen(int, int, int);
 bool checkGridOn(int, int, int);
+void increaseLives();
 
 class Organism {
 protected:
     //1 - north, 2 - south, 3 - east, 4 - west
-    int Space;
     int Life;
 public:
     //pass optional parameter to move it in direction of ant to eat?
@@ -35,9 +40,7 @@ public:
     int getLife() const {
         return Life;
     }
-    int getSpace() const {
-        return Space;
-    }
+
     void increaseLife() {
         Life += 1;
     }
@@ -48,72 +51,8 @@ public:
     //breed();
     //need to modify breed for bugs
     //constructor
-    Organism() { Space = 0; Life = 0;}
-    Organism(int space) {
-        Space = space;
-        Life = 0;
-    };
-    //
+    Organism() { Life = 0;}
 
-};
-
-class Doodlebug: public Organism {
-private:
-    int XCord;
-    int YCord;
-    int Life;
-public:
-    void setXCord(int cord) {
-        XCord = cord;
-    }
-
-    void setYCord(int cord) {
-        YCord = cord;
-    }
-
-    void move() { 
-        //north (1)
-        bool moved = false;
-        int direction = dis(gen);
-        //check for ant
-        if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
-            grid[XCord][YCord] = '-';
-            switch(direction){
-                //north
-                case 0:  
-                    YCord--;                
-                break;
-                //east
-                case 1:
-                    XCord++;
-                    break;
-                //south
-                case 2:
-                    YCord++;
-                    break;
-                //west
-                case 3:
-                    XCord--;
-                    break;
-                default:
-                    break;
-            }
-            grid[XCord][YCord] = 'X';
-        }
-        else
-            ;
-    }
-
-   /* void breed() {
-        if(checkGrid) {
-            //random space
-            //duplicate, call constructor
-        }
-    }
-    */
-
-    Doodlebug(int x, int y) {XCord = x, YCord = y, Life = 0;}
-    ~Doodlebug() {};
 };
 
 class Ant : public Organism {
@@ -123,6 +62,13 @@ private:
     //increment life every round, 
     int Life = 0;
 public:
+
+    int getXCord(){
+        return XCord;
+    }
+    int getYCord(){
+        return YCord;
+    }
     void setXCord(int cord) {
         XCord = cord;
     }
@@ -173,8 +119,107 @@ public:
 
 };
 
-vector<Doodlebug> doodle;
-vector<Ant> ants;
+
+class Doodlebug: public Organism {
+private:
+    int XCord;
+    int YCord;
+    int Life;
+public:
+    void setXCord(int cord) {
+        XCord = cord;
+    }
+
+    void setYCord(int cord) {
+        YCord = cord;
+    }
+
+    bool eat() {
+        vector<int> possible;
+        for (int i = 0; i < 4; i++) {
+            bool open = checkGridOn(XCord, YCord, i);
+            if (!open) {
+                possible.push_back(i);
+            }
+        }
+        int size = possible.size();
+        if (size != 0) {
+            random_shuffle(possible.begin(), possible.end());
+            int ant = possible[0];
+            grid[XCord][YCord] = '-';
+            switch(ant){
+                //north
+                case 0:  
+                    YCord--;                
+                break;
+                //east
+                case 1:
+                    XCord++;
+                    break;
+                //south
+                case 2:
+                    YCord++;
+                    break;
+                //west
+                case 3:
+                    XCord--;
+                    break;
+                default:
+                    break;
+            }
+            for (int i = 0; i < ants.size(); i++) {
+                int antX = ants[i].getXCord();
+                int antY = ants[i].getYCord();
+                if (antX == XCord && antY == YCord) {
+                    ants.erase(ants.begin() + i);
+                }
+            }
+
+            grid[XCord][YCord] = 'X';
+            
+        }
+    }
+
+    void move() { 
+        //north (1)
+        bool moved = false;
+        int direction = dis(gen);
+        //check for ant
+        if (checkGridOn(XCord, YCord, direction) && checkGridOpen(XCord, YCord, direction)) {
+            grid[XCord][YCord] = '-';
+            switch(direction){
+                //north
+                case 0:  
+                    YCord--;                
+                    break;
+                //east
+                case 1:
+                    XCord++;
+                    break;
+                //south
+                case 2:
+                    YCord++;
+                    break;
+                //west
+                case 3:
+                    XCord--;
+                    break;
+                default:
+                    break;
+            }
+            grid[XCord][YCord] = 'X';
+        }
+        else
+            ;
+    }
+
+
+    Doodlebug(int x, int y) {XCord = x, YCord = y, Life = 0;}
+    ~Doodlebug() {};
+};
+
+
+
 
 void printGrid(char arr[][20]) {
     for (int i = 0; i < 20; i++) {
@@ -209,6 +254,39 @@ bool checkGridOpen(int x, int y, int direction) {
             break;
         case 3:
             if (grid[x-1][y] == '-')
+                    return true;
+                else
+                    return false;
+            break;
+        }
+        else
+            return false;
+    }
+}
+
+bool checkGridAnt(int x, int y, int direction) {
+    switch (direction) {
+        if (checkGridOn) {
+            case 0:
+                if (grid[x][y-1] == 'o')
+                    return true;
+                else
+                    return false;
+                break;
+        case 1:
+            if (grid[x+1][y] == 'o')
+                    return true;
+                else
+                    return false;
+            break;
+        case 2:
+            if (grid[x][y+1] == 'o')
+                    return true;
+                else
+                    return false;
+            break;
+        case 3:
+            if (grid[x-1][y] == 'o')
                     return true;
                 else
                     return false;
@@ -291,14 +369,13 @@ void startSim() {
     
 }
 
-void updateGrid(int x, int y, char symbol){
-    grid[x][y] = symbol;
-}
-
 int roundNumber = 0;
 void round() {
     for (int i = 0; i < doodle.size(); i++) {
-        doodle[i].move();
+        bool eat = doodle[i].eat();
+        if (!eat) {
+            doodle[i].move();
+        }
     }
     for (int i = 0; i < ants.size(); i++) {
         ants[i].move();
