@@ -22,6 +22,9 @@ int main() {
     ifstream in_stream;
     ofstream out_stream;
 
+    string inputFile = "input.txt";
+    in_stream.open(inputFile);
+    out_stream.open("output.txt");
     string filePath = "this is a filepath";
     in_stream.open(filePath);
 
@@ -31,9 +34,19 @@ int main() {
     }
 
     char c;
-    while(in_stream) {
-        c = in_stream.get();
+    vector<int> allNumbers;
+    string currLine;
+    int currNum;
+    while(getline(in_stream, currLine)) {
+        for (int i = 2; i < currLine.length(); i++) {
+            char c = currLine[i];
+            out_stream<< c;
+        }
+        out_stream << "\n";
     }
 
     return 0;
 }
+
+
+
