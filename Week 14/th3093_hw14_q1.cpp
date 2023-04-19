@@ -2,8 +2,14 @@
 #include <vector>
 using namespace std;
 
-int divAndConq(vector <int> vec, int n, int &max, int &min) {
+void divAndConq(vector <int> vec, int n, int &max, int &min) {
+    if (n < 1)
+        cout<<"Vector is empty!"<<endl;
     if (n == 1) {
+        max = vec[0];
+        min = vec[0];
+    }
+    if (n == 2) {
 
     }
 }
@@ -13,5 +19,6 @@ int main() {
     int n = vec.size();
     int max, min;
     divAndConq(vec, n, max, min);
+    cout<<"Max: "<<max<<", Min: "<<min<<endl;
     return 0;
 }
