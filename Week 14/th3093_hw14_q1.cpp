@@ -10,7 +10,16 @@ void divAndConq(vector <int> vec, int n, int &max, int &min) {
         min = vec[0];
     }
     if (n == 2) {
-
+        if (vec[0] > vec[1]) {
+            max = vec[0];
+            min = vec[1];
+        }
+        if (vec[0] < vec[1]) {
+            max = vec[1];
+            min = vec[0];
+        }
+        else
+            cout<<"Max and min are equal";
     }
 }
 
