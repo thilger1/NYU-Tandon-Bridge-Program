@@ -1,25 +1,39 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 using namespace std;
 
-int findIndexOfMin(int arr[], int low, int high) {
-    int min, minInd;
+int basicReadIn() {
+    ifstream file;
+    string filePath = "this is a filepath";
+    file.open(filePath);
+    char c;
+    vector <char> v;
 
-    min = arr[low];
-    minInd = low;
-    for (int i = low+1; i <= high; i++){
-        if (arr[i] < min) {
-            min = arr[i];
-            minInd = i;
-        }
+    while(file.get(&c)) {
+        v.push_back(c);
     }
-    return minInd;
+
+    file.close();
+    return 0;
 }
 
-void selectionSort(int arr[], int arrSize) {
-    int i, minInd;
+int main() {
+    ifstream in_stream;
+    ofstream out_stream;
 
-    for (i = 0; i < arrSize; i++) {
-        minInd = findIndexOfMin(arr, i, arrSize-1);
-        swap(arr[i], arr[minInd]);
+    string filePath = "this is a filepath";
+    in_stream.open(filePath);
+
+    if(in_stream) {
+        cout<<"Fail";
+        return 1;
     }
+
+    char c;
+    while(in_stream) {
+        c = in_stream.get();
+    }
+
+    return 0;
 }
