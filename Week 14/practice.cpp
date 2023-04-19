@@ -26,4 +26,9 @@ int sortedSearch(int srtArr[], int srtArrSize, int val) {
         else //val > srt[mid]
             low = mid + 1;
     }
+
+    if (found == true)
+        return ind;
+    else
+        return -1;
 }
