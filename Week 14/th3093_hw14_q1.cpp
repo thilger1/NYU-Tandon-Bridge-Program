@@ -3,6 +3,7 @@
 using namespace std;
 
 void divAndConq(vector <int> vec, int n, int &max, int &min) {
+
     if (n < 1)
         cout<<"Vector is empty!"<<endl;
     if (n == 1) {
@@ -20,6 +21,21 @@ void divAndConq(vector <int> vec, int n, int &max, int &min) {
         }
         else
             cout<<"Max and min are equal";
+    }
+    else {
+        vector<int> left_vec;
+        vector<int> right_vec;
+
+        if (n % 2 == 0) {
+
+        }
+        vector<int> left_vec;
+        for (int i = 0; i < )
+        int vec_min = vec[0];
+        int vec_max = vec[1];   
+        if (n % 2 == 0) {
+
+        }
     }
 }
 
