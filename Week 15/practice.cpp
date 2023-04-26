@@ -18,12 +18,18 @@ void openInputFile(ifstream& inFile){
     }
 }
 
+struct Student {
+    int id;
+    double testScore;
+    string name;
+};
+
 int main() {
     ifstream inFile;
     openInputFile(inFile);
-    vector<int> v;
-    int temp;
-    while(inFile >> temp){
+    vector<Student> vs;
+    Student temp;
+    while(inFile >> temp.id){
         v.push_back(temp);
     }
 
