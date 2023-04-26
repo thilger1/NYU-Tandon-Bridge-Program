@@ -30,11 +30,14 @@ int main() {
     vector<Student> vs;
     Student temp;
     while(inFile >> temp.id){
-        v.push_back(temp);
+        inFile >> temp.testScore;
+        inFile.ignore(9999, '\t');
+        getline(inFile, temp.name);
+        vs.push_back(temp);
     }
-
-    double sum = 0;
-    for (int item : v)
-        sum += item;
-    cout<<"The average of the integers in the file is: " << sum / v.size() <<endl;
+    cout<<"Students with test scores over 90: "<<endl;
+    for (Student s : vs) {
+        if (s.testScore > 90)
+            cout<< s.name << endl;
+    }
 }
