@@ -6,10 +6,18 @@ using namespace std;
 
 template <class T>
 class LListNode {
-    T data;
-    LListNode<T>* next;
+    LListNode<T>* head;
+    LListNode<T>* recursiveCopy(LListNode<T>* rhs);
 public:
-    LListNode(T newdata = T(), LListNode<T>* newNext = nullptr) :
-        data(newdata), next(newNext) {}
-    friend class LList <T>;
+    LList() :head(nullptr) {}
+    LList(const LList& rhs) :head(nullptr) { *this = rhs; }
+    ~LList() { clear(); }
+    void insertAtHead(T newdata);
+    T removeFromHead();
+    bool isEmpty()const { return head == nullptr; }
+    void clear();
+    void insertAtEnd(T newdata);
+
+    void insertAtPoint(LListNode<T>* ptr, T newdata)
+    int size() const;
 };

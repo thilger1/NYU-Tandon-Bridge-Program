@@ -123,7 +123,7 @@ void moveMoney(Node* head) {
 
 void openInputFile(ifstream& inFile) {
     string filename;
-    cout <<"What filename?: ";
+    cout << "What filename?: ";
     cin >> filename;
     inFile.open(filename);
     while(!inFile) {
