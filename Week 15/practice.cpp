@@ -4,20 +4,30 @@
 
 using namespace std;
 
-template <class T>
-class LListNode {
-    LListNode<T>* head;
-    LListNode<T>* recursiveCopy(LListNode<T>* rhs);
+class Node {
 public:
-    LList() :head(nullptr) {}
-    LList(const LList& rhs) :head(nullptr) { *this = rhs; }
-    ~LList() { clear(); }
-    void insertAtHead(T newdata);
-    T removeFromHead();
-    bool isEmpty()const { return head == nullptr; }
-    void clear();
-    void insertAtEnd(T newdata);
+    int Value;
+    Node* Next;
 
-    void insertAtPoint(LListNode<T>* ptr, T newdata)
-    int size() const;
 };
+
+void printList() {
+    
+}
+
+int main() {
+    Node* head = new Node();
+    Node* second = new Node();
+    Node* third = new Node();
+
+    head->Value = 1;
+    head->Next = second;
+    second->Value = 2;
+    second->Next = third;
+    third->Value = 3;
+    third->Next = NULL;
+
+    delete head;
+    delete second;
+    delete third;
+}
