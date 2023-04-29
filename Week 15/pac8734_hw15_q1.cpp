@@ -116,6 +116,9 @@ void moveMoney(Node* head) {
         runner = start;
     }
     cout<<"In the end, you all should have spent about $"<<average<<endl;
+    delete start;
+    delete point;
+    delete runner;
 }
 
 int main() {
@@ -149,6 +152,9 @@ int main() {
         current = current->next;
         delete temp;
     }
+
+    delete head;
+    delete current;
 
     return 0;
 }
