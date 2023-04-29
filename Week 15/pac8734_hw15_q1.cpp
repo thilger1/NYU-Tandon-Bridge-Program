@@ -121,9 +121,23 @@ void moveMoney(Node* head) {
     delete runner;
 }
 
+void openInputFile(ifstream& inFile) {
+    string filename;
+    cout <<"What filename?: ";
+    cin >> filename;
+    inFile.open(filename);
+    while(!inFile) {
+        cout << "FILE FAILED TO OPEN!" << endl;
+        cout<< "What filename?: ";
+        cin >> filename;
+        inFile.clear();
+        inFile.open(filename);
+    }
+}
+
 int main() {
-    fstream myFile;
-    myFile.open("namesAndAmts.txt", ios::in);
+    ifstream myFile;
+    openInputFile(myFile);
 
     Node* head = nullptr;
     Node* current = nullptr;
