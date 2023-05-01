@@ -25,17 +25,16 @@ void divAndConq(vector <int> vec, int n, int &max, int &min) {
     else {
         vector<int> left_vec;
         vector<int> right_vec;
+        int vec_mid = vec.size() / 2;
 
-        if (n % 2 == 0) {
-
+        for (int i = 0; i < vec_mid; i++) {
+            left_vec.push_back(vec[i]);
         }
-        vector<int> left_vec;
-        for (int i = 0; i < )
-        int vec_min = vec[0];
-        int vec_max = vec[1];   
-        if (n % 2 == 0) {
-
+        for (int i = vec_mid; i < vec.size(); i++) {
+            right_vec.push_back(vec[i]);
         }
+        divAndConq(right_vec, right_vec.size(), max, min);
+        divAndConq(left_vec, left_vec.size(), max, min);
     }
 }
 

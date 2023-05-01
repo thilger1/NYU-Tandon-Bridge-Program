@@ -1,13 +1,15 @@
 #include <iostream>
-#include <list>
-#include <queue>
-#include <stack>
+#include <fstream>
 
 using namespace std;
+ifstream in_stream;
+ofstream out_stream;
 
 int main() {
-    Queue<int> q;
-    q.enqueue(20);
-    q.enqueue(50);
-    q.enqueue(30);
+    
+    int the_number;
+    cout<<"Num?"<<endl;
+    in_stream>>the_number;
+    out_stream<<"NUM: ";
+    out_stream<<the_number;
 }

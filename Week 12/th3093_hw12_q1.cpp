@@ -110,13 +110,22 @@ class Check {
 private:
     int check_num;
     Money check_amount;
-    int check_cashed;
+    bool check_cashed;
 public:
+    Check (int num = 0, Money amount = 0, bool cashed = 0) {
+        check_num = num;
+        check_amount = amount;
+        check_cashed = cashed;
+    }
+
     void setNum(int num) {
         check_num = num;
     }
     void setAmount(Money amount) {
         check_amount = amount;
+    }
+    Money getAmount() {
+        return check_amount;
     }
     //1 or 0
     void setCashed(int binary) {
@@ -189,8 +198,8 @@ void depositChecks() {
 }
 
 int main() {
-    depositChecks();
-    delete[] arr;
+    Check checker;
+    cout<<checker.getAmount();
     return 0;
 }
 

@@ -14,4 +14,14 @@ void selectionSort(vector<int>& v) { //Runtime: Theta(N^2)
             v[minIndex] = temp;
     }
 }
-void insertionSort(vector)
+void insertionSort(vector<int>&v) { //Runtime: Theta(N^2)  best: Theta(N)   worst case: Theta(N^2)
+    for (int i = 1; i < v.size(); i++) {
+        int j = i;
+        int temp = v[i];
+        while (j > 0 && v[j - 1] > temp) {
+            v[j] = v[j-1];
+            j--;
+        }
+        v[j] = temp;
+    }
+}

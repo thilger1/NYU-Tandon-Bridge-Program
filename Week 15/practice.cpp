@@ -8,10 +8,13 @@ class Node {
 public:
     int Value;
     Node* Next;
-
 };
 
-void printList() {
+void printList(Node*& n) {
+    while(n!=NULL) {
+        cout<<n->Value<<endl;
+        n = n->Next;
+    }
     
 }
 
@@ -26,6 +29,8 @@ int main() {
     second->Next = third;
     third->Value = 3;
     third->Next = NULL;
+
+    printList(head);
 
     delete head;
     delete second;
