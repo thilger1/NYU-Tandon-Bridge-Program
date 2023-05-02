@@ -1,10 +1,12 @@
 #include <vector>
 #include <iostream>
 #include <string.h>
+#include <fstream>
 
 //need to account for if vector is empty BEFORE calling pop
-
 using namespace std;
+
+ifstream fin;
 
 class Stack {
 private:
@@ -35,15 +37,39 @@ bool pascal(){
     cin>>begin;
     cin>>content;
     cin>>end;
+    //checks each char within content
     for (int i = 0; i < content.length(); i++) {
+        //opening bracket is pushed onto stack
         if (content[i] == '{' || content[i] == '(' || content[i] == '[') {
             checker.push(content[i]);
         }
+        //a closing bracket is checked against most recent push
         if (content[i] == '}' || content[i] == ')' || content[i] == ']') {
-            check = Stack.
+            if (!checker.isEmpty()) {
+                check = checker.pop();
+                switch(check) {
+                    case '{':
+                        if (content[i] != '}')
+                            return false;
+                    case '(':
+                        if (content[i] != ')')
+                            return false;
+                    case '[':
+                        if (content[i] != ']')
+                            return false;
+                }
+            }
+            //if the Stack is empty and a closing bracket is added, that would be not allowed
+            else
+                return false;
         }
     }
-
+    //finally, check if there are any unattended opening brackets left after the full length of content
+    if(!checker.isEmpty())
+        return false;
+    //if all of this passes, then it is legitimate
+    else
+        return true;
 }
 
 int main() {
