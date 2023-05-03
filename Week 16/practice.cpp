@@ -5,21 +5,15 @@
 using namespace std;
 
 void readContent(ifstream& inFile) {
-    string line;
-    cout<<"start...";
     inFile.open("content.txt");
     if (!inFile)
         cout<<"Failed to open";
-    if (getline(inFile, line)) {
-        string begin;
-        string content;
-        string end;
-
-        cin>>begin;
-        cin>>content;
-        cin>>end;
-        cout<<content<<endl;
-    }
+    string begin;
+    string content;
+    string end;
+    inFile >> begin >> content >> end;
+    cout<<content;
+    inFile.close();
 }
 
 main() {
