@@ -1,24 +1,13 @@
-#include <fstream>
-#include <string>
-#include <iostream>
+template <class T>
+class BSTNode {
+    T data;
+    BSTNode<T>* parent;
+    BSTNode<T>* left;
+    BSTNode<T>* right;
+public:
+    BSTNode(T newdata = T(), BSTNode<T>* newParent = nullptr, BSTNode<T>* newLeft = nullptr, BSTNode<T>* newRight = nullptr)
+    : data(newdata), parent(newParent), left(newLeft), right(newRight) {}
+    friend class BST<T>;
+    int getSize() const;
+};
 
-using namespace std;
-
-void readContent(ifstream& inFile) {
-    inFile.open("content.txt");
-    if (!inFile) {
-        cout<<"Failed to open file";
-        return;
-    }
-    string begin;
-    string content;
-    string end;
-    inFile >> begin >> content >> end;
-    cout<<content;
-    inFile.close();
-}
-
-main() {
-    ifstream inFile;
-    readContent(inFile);
-}
