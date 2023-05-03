@@ -6,8 +6,10 @@ using namespace std;
 
 void readContent(ifstream& inFile) {
     inFile.open("content.txt");
-    if (!inFile)
-        cout<<"Failed to open";
+    if (!inFile) {
+        cout<<"Failed to open file";
+        return;
+    }
     string begin;
     string content;
     string end;
