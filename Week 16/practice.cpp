@@ -1,11 +1,19 @@
 #include <iostream>
 #include <string.h>
+#include <fstream>
 using namespace std;
 
-int main() {
-    string line;
-    getline(cin, line);
-    cout<<"String: "<<line<<endl;
-    return 0;
-}
 
+ListNode* reverse_linked_list(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* cur = head;
+
+    while (cur != nullptr) {
+        ListNode* next = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = next;
+    }
+
+    return prev;
+}
